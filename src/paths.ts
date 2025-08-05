@@ -7,6 +7,9 @@ export const paths = {
     customers: '/dashboard/customers',
     settings: '/dashboard/settings',
     carousel: '/dashboard/carousel',
+    news: '/dashboard/news',
+    attractions: '/dashboard/attractions',
+    navigation: '/dashboard/navigation',
   },
   errors: { notFound: '/errors/not-found' },
 } as const;
