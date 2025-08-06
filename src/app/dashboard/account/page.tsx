@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import { config } from '@/config';
 import { AccountDetailsForm } from '@/components/dashboard/account/account-details-form';
 import { AccountInfo } from '@/components/dashboard/account/account-info';
+import { UpdatePasswordForm } from '@/components/dashboard/settings/update-password-form';
 
 export const metadata = { title: `Account | Dashboard | ${config.site.name}` } satisfies Metadata;
 
@@ -34,6 +35,8 @@ export default function Page(): React.JSX.Element {
           }}
         >
           <AccountDetailsForm />
+          <br />
+          <UpdatePasswordForm />
         </Grid>
       </Grid>
     </Stack>

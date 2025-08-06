@@ -106,6 +106,8 @@ export const carouselApi = {
       updatedAt: new Date().toISOString(),
     };
     
+    console.log('Carousel created:', newItem);
+    
     return newItem;
   },
 
@@ -122,6 +124,8 @@ export const carouselApi = {
       createdAt: "2024-01-01T00:00:00.000Z",
       updatedAt: new Date().toISOString(),
     };
+    
+    console.log('Carousel updated:', updatedItem);
     
     return updatedItem;
   },

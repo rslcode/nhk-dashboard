@@ -144,6 +144,8 @@ export const attractionsApi = {
       updatedAt: new Date().toISOString(),
     };
     
+    console.log('Attraction created:', newItem);
+    
     return newItem;
   },
 
@@ -162,6 +164,8 @@ export const attractionsApi = {
       createdAt: "2024-01-01T00:00:00.000Z",
       updatedAt: new Date().toISOString(),
     };
+    
+    console.log('Attraction updated:', updatedItem);
     
     return updatedItem;
   },

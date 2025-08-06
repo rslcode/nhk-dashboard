@@ -124,6 +124,8 @@ export const newsApi = {
       updatedAt: new Date().toISOString(),
     };
     
+    console.log('News created:', newItem);
+    
     return newItem;
   },
 
@@ -142,6 +144,8 @@ export const newsApi = {
       createdAt: "2024-01-01T00:00:00.000Z",
       updatedAt: new Date().toISOString(),
     };
+    
+    console.log('News updated:', updatedItem);
     
     return updatedItem;
   },

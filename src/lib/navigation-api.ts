@@ -141,6 +141,8 @@ export const navigationApi = {
       updatedAt: new Date().toISOString(),
     };
     
+    console.log('City created:', newCity);
+    
     return newCity;
   },
 
@@ -153,6 +155,8 @@ export const navigationApi = {
       createdAt: "2024-01-01T00:00:00.000Z",
       updatedAt: new Date().toISOString(),
     };
+    
+    console.log('City updated:', updatedCity);
     
     return updatedCity;
   },
@@ -237,6 +241,8 @@ export const navigationApi = {
       updatedAt: new Date().toISOString(),
     };
     
+    console.log('Service created:', newService);
+    
     return newService;
   },
 
@@ -252,6 +258,8 @@ export const navigationApi = {
       createdAt: "2024-01-01T00:00:00.000Z",
       updatedAt: new Date().toISOString(),
     };
+    
+    console.log('Service updated:', updatedService);
     
     return updatedService;
   },
@@ -345,6 +353,8 @@ export const navigationApi = {
       updatedAt: new Date().toISOString(),
     };
     
+    console.log('Object created:', newObject);
+    
     return newObject;
   },
 
@@ -360,6 +370,8 @@ export const navigationApi = {
       createdAt: "2024-01-01T00:00:00.000Z",
       updatedAt: new Date().toISOString(),
     };
+    
+    console.log('Object updated:', updatedObject);
     
     return updatedObject;
   },
@@ -453,6 +465,8 @@ export const navigationApi = {
       updatedAt: new Date().toISOString(),
     };
     
+    console.log('Address created:', newAddress);
+    
     return newAddress;
   },
 
@@ -471,6 +485,8 @@ export const navigationApi = {
       createdAt: "2024-01-01T00:00:00.000Z",
       updatedAt: new Date().toISOString(),
     };
+    
+    console.log('Address updated:', updatedAddress);
     
     return updatedAddress;
   },
