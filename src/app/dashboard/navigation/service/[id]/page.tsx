@@ -131,14 +131,14 @@ export default function ServicePage({ params }: ServicePageProps): React.JSX.Ele
 
   const getServiceTypeLabel = (type: string) => {
     const typeMap: Record<string, string> = {
-      hotel: 'Hotel',
-      restaurant: 'Restaurant',
-      attraction: 'Attraction',
-      transport: 'Transport',
-      entertainment: 'Entertainment',
-      shopping: 'Shopping',
-      medical: 'Medical',
-      other: 'Other'
+      hotel: 'Отель',
+      restaurant: 'Ресторан',
+      attraction: 'Достопримечательность',
+      transport: 'Транспорт',
+      entertainment: 'Развлечения',
+      shopping: 'Шоппинг',
+      medical: 'Медицина',
+      other: 'Другое'
     };
     return typeMap[type] || type;
   };
@@ -165,36 +165,36 @@ export default function ServicePage({ params }: ServicePageProps): React.JSX.Ele
     );
   }
 
-  // Show addresses for selected object
+  // Показать адреса для выбранного объекта
   if (selectedObject) {
     const objectAddresses = addresses.filter(addr => addr.objectId === selectedObject.id);
 
     return (
       <Container maxWidth="xl">
-        {/* Header with Back button, Object Title, and Add Address button */}
+        {/* Шапка с кнопкой Назад, названием объекта и кнопкой Добавить адрес */}
         <Stack direction="row" spacing={2} alignItems="center" sx={{ mb: 4 }}>
           <IconButton onClick={handleBackToObjects}><ArrowLeftIcon /></IconButton>
           <Box sx={{ flexGrow: 1 }}>
             <Typography variant="h4" component="h1">{selectedObject.title}</Typography>
             <Typography variant="body1" color="text.secondary">в {selectedService.title} ({selectedCity.name})</Typography>
             {selectedObject.latitude && selectedObject.longitude && (
-              <Typography variant="body2" color="text.secondary">Coordinates: {selectedObject.latitude}, {selectedObject.longitude}</Typography>
+              <Typography variant="body2" color="text.secondary">Координаты: {selectedObject.latitude}, {selectedObject.longitude}</Typography>
             )}
           </Box>
-          <Button variant="contained" startIcon={<PlusIcon />} onClick={handleCreateAddress}>Add Address</Button>
+          <Button variant="contained" startIcon={<PlusIcon />} onClick={handleCreateAddress}>Добавить адрес</Button>
         </Stack>
 
-        {/* Addresses Table */}
+        {/* Таблица адресов */}
         <Card>
           <CardContent>
-            <Typography variant="h6" gutterBottom>Addresses ({objectAddresses.length})</Typography>
+            <Typography variant="h6" gutterBottom>Адреса ({objectAddresses.length})</Typography>
             {objectAddresses.length > 0 ? (
               <TableContainer component={Paper} variant="outlined">
                 <Table>
                   <TableHead>
                     <TableRow>
-                      <TableCell>Title</TableCell>
-                      <TableCell>Actions</TableCell>
+                      <TableCell>Название</TableCell>
+                      <TableCell>Действия</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -205,7 +205,6 @@ export default function ServicePage({ params }: ServicePageProps): React.JSX.Ele
                         </TableCell>
                         <TableCell>
                           <Stack direction="row" spacing={1}>
-
                             <IconButton size="small" onClick={() => handleEditAddress(address)} color="primary"><PencilIcon /></IconButton>
                             <IconButton size="small" onClick={() => handleDeleteAddress(address)} color="error"><TrashIcon /></IconButton>
                           </Stack>
@@ -217,42 +216,42 @@ export default function ServicePage({ params }: ServicePageProps): React.JSX.Ele
               </TableContainer>
             ) : (
               <Box sx={{ textAlign: 'center', py: 4 }}>
-                <Typography variant="body1" color="text.secondary">No addresses yet. Click "Add Address" to create one.</Typography>
+                <Typography variant="body1" color="text.secondary">Адресов пока нет. Нажмите "Добавить адрес" чтобы создать.</Typography>
               </Box>
             )}
           </CardContent>
         </Card>
 
-        {/* Address Form */}
+        {/* Форма адреса */}
         {isAddressFormOpen && (<AddressForm open={isAddressFormOpen} onClose={handleCloseAddressForm} item={editingAddress} object={selectedObject} service={selectedService} city={selectedCity} />)}
 
-        {/* Address Delete Confirmation Dialog */}
+        {/* Диалог подтверждения удаления адреса */}
         <Dialog open={addressDeleteDialogOpen} onClose={handleCancelAddressDelete}>
-          <DialogTitle>Delete Address</DialogTitle>
+          <DialogTitle>Удалить адрес</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              Are you sure you want to delete "{addressToDelete?.title}"? This action cannot be undone.
+              Вы уверены, что хотите удалить адрес "{addressToDelete?.title}"? Это действие нельзя отменить.
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleCancelAddressDelete}>Cancel</Button>
-            <Button onClick={handleConfirmAddressDelete} color="error" variant="contained">Delete</Button>
+            <Button onClick={handleCancelAddressDelete}>Отмена</Button>
+            <Button onClick={handleConfirmAddressDelete} color="error" variant="contained">Удалить</Button>
           </DialogActions>
         </Dialog>
       </Container>
     );
   }
 
-  // Show objects grid
+  // Показать сетку объектов
   return (
     <Container maxWidth="xl">
-      {/* Header with Back button, Service Title, and Add Object button */}
+      {/* Шапка с кнопкой Назад, названием сервиса и кнопкой Добавить объект */}
       <Stack direction="row" spacing={2} alignItems="center" sx={{ mb: 4 }}>
         <Link href={`/dashboard/navigation/city/${selectedCity.id}`} passHref>
           <IconButton><ArrowLeftIcon /></IconButton>
         </Link>
         <Box sx={{ flexGrow: 1 }}>
-          <Typography variant="h4" component="h1">{selectedService.title || `${selectedService.type} Услуги`}</Typography>
+          <Typography variant="h4" component="h1">{selectedService.title || `Услуги ${selectedService.type}`}</Typography>
           <Stack direction="row" spacing={2} alignItems="center">
             <Typography variant="body1" color="text.secondary">в {selectedCity.name}</Typography>
             <Chip
@@ -269,7 +268,7 @@ export default function ServicePage({ params }: ServicePageProps): React.JSX.Ele
         <Button variant="contained" startIcon={<PlusIcon />} onClick={handleCreateObject}>Добавить объект</Button>
       </Stack>
 
-      {/* Objects Grid */}
+      {/* Сетка объектов */}
       <Grid container spacing={3}>
         {serviceObjects.map((object) => {
           const objectAddresses = addresses.filter(addr => addr.objectId === object.id);
@@ -292,7 +291,6 @@ export default function ServicePage({ params }: ServicePageProps): React.JSX.Ele
                   <Box sx={{ mt: 'auto' }}>
                     <Stack direction="row" spacing={1} justifyContent="flex-end" alignItems="center">
                       <Stack direction="row" spacing={1}>
-
                         <IconButton size="small" onClick={() => handleEditObject(object)} color="primary"><PencilIcon /></IconButton>
                         <IconButton size="small" onClick={() => handleDeleteObject(object)} color="error"><TrashIcon /></IconButton>
                       </Stack>
@@ -305,15 +303,15 @@ export default function ServicePage({ params }: ServicePageProps): React.JSX.Ele
         })}
       </Grid>
 
-      {/* Object Form */}
+      {/* Форма объекта */}
       {isObjectFormOpen && (<ObjectFormWithMap open={isObjectFormOpen} onClose={handleCloseObjectForm} item={editingObject} service={selectedService} city={selectedCity} />)}
 
-      {/* Delete Confirmation Dialog */}
+      {/* Диалог подтверждения удаления объекта */}
       <Dialog open={deleteDialogOpen} onClose={handleCancelDelete}>
         <DialogTitle>Удалить объект</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Вы уверены, что хотите удалить? "{objectToDelete?.title}"? Это действие не может быть отменено и также приведет к удалению всех связанных адресов.
+            Вы уверены, что хотите удалить объект "{objectToDelete?.title}"? Это действие нельзя отменить и приведёт к удалению всех связанных адресов.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
