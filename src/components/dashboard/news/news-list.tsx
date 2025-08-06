@@ -69,7 +69,7 @@ export function NewsList({ onEdit }: NewsListProps): React.JSX.Element {
   if (isLoading) {
     return (
       <Box sx={{ display: 'flex', justifyContent: 'center', p: 3 }}>
-        <Typography>Loading...</Typography>
+        <Typography>Загрузка...</Typography>
       </Box>
     );
   }
@@ -78,7 +78,7 @@ export function NewsList({ onEdit }: NewsListProps): React.JSX.Element {
     return (
       <Box sx={{ textAlign: 'center', p: 3 }}>
         <Typography color="text.secondary" variant="body1">
-          No news articles found. Create your first article to get started.
+          Новостные статьи не найдены. Создайте первую статью, чтобы начать.
         </Typography>
       </Box>
     );
@@ -90,12 +90,12 @@ export function NewsList({ onEdit }: NewsListProps): React.JSX.Element {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Image</TableCell>
-              <TableCell>Title</TableCell>
-              <TableCell>Description</TableCell>
-              <TableCell>Status</TableCell>
-              <TableCell>Created</TableCell>
-              <TableCell align="right">Actions</TableCell>
+              <TableCell>Изображение</TableCell>
+              <TableCell>Заголовок</TableCell>
+              <TableCell>Описание</TableCell>
+              <TableCell>Статус</TableCell>
+              <TableCell>Создана</TableCell>
+              <TableCell align="right">Действия</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -124,14 +124,14 @@ export function NewsList({ onEdit }: NewsListProps): React.JSX.Element {
                 <TableCell>
                   {item.isPublished ? (
                     <Chip
-                      label="Published"
+                      label="Опубликовано"
                       size="small"
                       color="success"
                       variant="outlined"
                     />
                   ) : (
                     <Chip
-                      label="Draft"
+                      label="Черновик"
                       size="small"
                       color="default"
                       variant="outlined"
@@ -175,19 +175,19 @@ export function NewsList({ onEdit }: NewsListProps): React.JSX.Element {
         aria-describedby="delete-dialog-description"
       >
         <DialogTitle id="delete-dialog-title">
-          Delete News Article
+          Удалить новостную статью
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="delete-dialog-description">
-            Are you sure you want to delete "{itemToDelete?.title}"? This action cannot be undone.
+            Вы уверены, что хотите удалить "{itemToDelete?.title}"? Это действие нельзя отменить.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleDeleteCancel} color="primary">
-            Cancel
+            Отмена
           </Button>
           <Button onClick={handleDeleteConfirm} color="error" variant="contained">
-            Delete
+            Удалить
           </Button>
         </DialogActions>
       </Dialog>

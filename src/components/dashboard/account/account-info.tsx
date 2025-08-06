@@ -11,9 +11,9 @@ import Typography from '@mui/material/Typography';
 const user = {
   name: 'Sofia Rivers',
   avatar: '/assets/avatar.png',
-  jobTitle: 'Senior Developer',
-  country: 'USA',
-  city: 'Los Angeles',
+  jobTitle: 'Старший разработчик',
+  country: 'США',
+  city: 'Лос-Анджелес',
   timezone: 'GTM-7',
 } as const;
 
@@ -39,7 +39,7 @@ export function AccountInfo(): React.JSX.Element {
       <Divider />
       <CardActions>
         <Button fullWidth variant="text">
-          Upload picture
+          Загрузить фото
         </Button>
       </CardActions>
     </Card>

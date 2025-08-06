@@ -66,22 +66,22 @@ export function CitiesList({ onEdit }: CitiesListProps): React.JSX.Element {
 
   const getServiceTypeLabel = (type: string) => {
     const labels: Record<string, string> = {
-      hotel: 'Hotel',
-      restaurant: 'Restaurant',
-      attraction: 'Attraction',
-      transport: 'Transport',
-      entertainment: 'Entertainment',
-      shopping: 'Shopping',
-      medical: 'Medical',
-      other: 'Other'
+      hotel: 'Отель',
+      restaurant: 'Ресторан',
+      attraction: 'Достопримечательность',
+      transport: 'Транспорт',
+      entertainment: 'Развлечения',
+      shopping: 'Шоппинг',
+      medical: 'Медицина',
+      other: 'Другое'
     };
-    return labels[type] || 'Other';
+    return labels[type] || 'Другое';
   };
 
   if (isLoading) {
     return (
       <Box sx={{ display: 'flex', justifyContent: 'center', p: 3 }}>
-        <Typography>Loading...</Typography>
+        <Typography>Загрузка...</Typography>
       </Box>
     );
   }
@@ -90,7 +90,7 @@ export function CitiesList({ onEdit }: CitiesListProps): React.JSX.Element {
     return (
       <Box sx={{ textAlign: 'center', p: 3 }}>
         <Typography color="text.secondary" variant="body1">
-          No cities found. Create your first city to get started.
+          Городов не найдено. Создайте первый город, чтобы начать.
         </Typography>
       </Box>
     );
@@ -102,10 +102,10 @@ export function CitiesList({ onEdit }: CitiesListProps): React.JSX.Element {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>City</TableCell>
-              <TableCell>Services</TableCell>
-              <TableCell>Created</TableCell>
-              <TableCell align="right">Actions</TableCell>
+              <TableCell>Город</TableCell>
+              <TableCell>Сервисы</TableCell>
+              <TableCell>Создан</TableCell>
+              <TableCell align="right">Действия</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -133,7 +133,7 @@ export function CitiesList({ onEdit }: CitiesListProps): React.JSX.Element {
                       ))
                     ) : (
                       <Typography variant="caption" color="text.secondary">
-                        No services
+                        Нет сервисов
                       </Typography>
                     )}
                   </Stack>
@@ -175,19 +175,19 @@ export function CitiesList({ onEdit }: CitiesListProps): React.JSX.Element {
         aria-describedby="delete-dialog-description"
       >
         <DialogTitle id="delete-dialog-title">
-          Delete City
+          Удалить город
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="delete-dialog-description">
-            Are you sure you want to delete "{itemToDelete?.name}"? This action cannot be undone.
+            Вы уверены, что хотите удалить "{itemToDelete?.name}"? Это действие нельзя отменить.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleDeleteCancel} color="primary">
-            Cancel
+            Отмена
           </Button>
           <Button onClick={handleDeleteConfirm} color="error" variant="contained">
-            Delete
+            Удалить
           </Button>
         </DialogActions>
       </Dialog>

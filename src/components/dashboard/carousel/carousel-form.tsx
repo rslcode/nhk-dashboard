@@ -95,15 +95,15 @@ export function CarouselForm({ open, onClose, item }: CarouselFormProps): React.
     const newErrors: Record<string, string> = {};
 
     if (!formData.title.trim()) {
-      newErrors.title = 'Title is required';
+      newErrors.title = 'Заголовок обязателен';
     }
 
     if (!item && !formData.image) {
-      newErrors.image = 'Image is required';
+      newErrors.image = 'Изображение обязательно';
     }
 
     if (formData.link && !isValidUrl(formData.link)) {
-      newErrors.link = 'Please enter a valid URL';
+      newErrors.link = 'Пожалуйста, введите корректный URL';
     }
 
     setErrors(newErrors);
@@ -144,14 +144,14 @@ export function CarouselForm({ open, onClose, item }: CarouselFormProps): React.
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
       <DialogTitle>
-        {item ? 'Edit Carousel Item' : 'Create New Carousel Item'}
+        {item ? 'Редактировать элемент карусели' : 'Создать новый элемент карусели'}
       </DialogTitle>
       <form onSubmit={handleSubmit}>
         <DialogContent>
           <Stack spacing={3}>
             <TextField
               fullWidth
-              label="Title"
+              label="Заголовок"
               value={formData.title}
               onChange={(e) => handleInputChange('title', e.target.value)}
               error={!!errors.title}
@@ -161,17 +161,17 @@ export function CarouselForm({ open, onClose, item }: CarouselFormProps): React.
 
             <TextField
               fullWidth
-              label="Link (optional)"
+              label="Ссылка (необязательно)"
               value={formData.link}
               onChange={(e) => handleInputChange('link', e.target.value)}
               error={!!errors.link}
-              helperText={errors.link || 'Enter a URL to link this carousel item'}
+              helperText={errors.link || 'Введите URL для ссылки этого элемента карусели'}
               placeholder="https://example.com"
             />
 
             <Box>
               <Typography variant="subtitle2" gutterBottom>
-                Image {!item && '*'}
+                Изображение {!item && '*'}
               </Typography>
               
               {previewUrl && (
@@ -202,7 +202,7 @@ export function CarouselForm({ open, onClose, item }: CarouselFormProps): React.
                 fullWidth
                 sx={{ height: 56 }}
               >
-                {previewUrl ? 'Change Image' : 'Upload Image'}
+                {previewUrl ? 'Изменить изображение' : 'Загрузить изображение'}
                 <input
                   type="file"
                   hidden
@@ -219,14 +219,14 @@ export function CarouselForm({ open, onClose, item }: CarouselFormProps): React.
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose} disabled={isSubmitting}>
-            Cancel
+            Отмена
           </Button>
           <Button
             type="submit"
             variant="contained"
             disabled={isSubmitting}
           >
-            {isSubmitting ? 'Saving...' : (item ? 'Update' : 'Create')}
+            {isSubmitting ? 'Сохранение...' : (item ? 'Обновить' : 'Создать')}
           </Button>
         </DialogActions>
       </form>

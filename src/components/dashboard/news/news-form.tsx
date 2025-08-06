@@ -103,23 +103,23 @@ export function NewsForm({ open, onClose, item }: NewsFormProps): React.JSX.Elem
     const newErrors: Record<string, string> = {};
 
     if (!formData.title.trim()) {
-      newErrors.title = 'Title is required';
+      newErrors.title = 'Заголовок обязателен';
     }
 
     if (!formData.description.trim()) {
-      newErrors.description = 'Description is required';
+      newErrors.description = 'Описание обязательно';
     }
 
     if (!formData.content.trim()) {
-      newErrors.content = 'Content is required';
+      newErrors.content = 'Содержание обязательно';
     }
 
     if (formData.title.length > 255) {
-      newErrors.title = 'Title must be less than 255 characters';
+      newErrors.title = 'Заголовок должен быть менее 255 символов';
     }
 
     if (formData.description.length > 500) {
-      newErrors.description = 'Description must be less than 500 characters';
+      newErrors.description = 'Описание должно быть менее 500 символов';
     }
 
     setErrors(newErrors);
@@ -151,14 +151,14 @@ export function NewsForm({ open, onClose, item }: NewsFormProps): React.JSX.Elem
   return (
     <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
       <DialogTitle>
-        {item ? 'Edit News Article' : 'Create New News Article'}
+        {item ? 'Редактировать новость' : 'Создать новую новость'}
       </DialogTitle>
       <form onSubmit={handleSubmit}>
         <DialogContent>
           <Stack spacing={3}>
             <TextField
               fullWidth
-              label="Title"
+              label="Заголовок"
               value={formData.title}
               onChange={(e) => handleInputChange('title', e.target.value)}
               error={!!errors.title}
@@ -168,11 +168,11 @@ export function NewsForm({ open, onClose, item }: NewsFormProps): React.JSX.Elem
 
             <TextField
               fullWidth
-              label="Description"
+              label="Описание"
               value={formData.description}
               onChange={(e) => handleInputChange('description', e.target.value)}
               error={!!errors.description}
-              helperText={errors.description || 'Brief description of the article'}
+              helperText={errors.description || 'Краткое описание статьи'}
               required
               multiline
               rows={2}
@@ -180,11 +180,11 @@ export function NewsForm({ open, onClose, item }: NewsFormProps): React.JSX.Elem
 
             <TextField
               fullWidth
-              label="Content"
+              label="Содержание"
               value={formData.content}
               onChange={(e) => handleInputChange('content', e.target.value)}
               error={!!errors.content}
-              helperText={errors.content || 'Full article content'}
+              helperText={errors.content || 'Полное содержание статьи'}
               required
               multiline
               rows={8}
@@ -192,7 +192,7 @@ export function NewsForm({ open, onClose, item }: NewsFormProps): React.JSX.Elem
 
             <Box>
               <Typography variant="subtitle2" gutterBottom>
-                Article Image (optional)
+                Изображение статьи (необязательно)
               </Typography>
               
               {previewUrl && (
@@ -223,7 +223,7 @@ export function NewsForm({ open, onClose, item }: NewsFormProps): React.JSX.Elem
                 fullWidth
                 sx={{ height: 56 }}
               >
-                {previewUrl ? 'Change Image' : 'Upload Image'}
+                {previewUrl ? 'Изменить изображение' : 'Загрузить изображение'}
                 <input
                   type="file"
                   hidden
@@ -245,24 +245,24 @@ export function NewsForm({ open, onClose, item }: NewsFormProps): React.JSX.Elem
                   color="primary"
                 />
               }
-              label="Published"
+              label="Опубликовано"
             />
             
             <Typography variant="caption" color="text.secondary">
-              Published articles will be visible to users. Draft articles are only visible to administrators.
+              Опубликованные статьи будут видны пользователям. Черновики видны только администраторам.
             </Typography>
           </Stack>
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose} disabled={isSubmitting}>
-            Cancel
+            Отмена
           </Button>
           <Button
             type="submit"
             variant="contained"
             disabled={isSubmitting}
           >
-            {isSubmitting ? 'Saving...' : (item ? 'Update' : 'Create')}
+            {isSubmitting ? 'Сохранение...' : (item ? 'Обновить' : 'Создать')}
           </Button>
         </DialogActions>
       </form>

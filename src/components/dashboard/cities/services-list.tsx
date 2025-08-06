@@ -67,22 +67,22 @@ export function ServicesList({ onEdit }: ServicesListProps): React.JSX.Element {
 
   const getServiceTypeLabel = (type: string) => {
     const labels: Record<string, string> = {
-      hotel: 'Hotel',
-      restaurant: 'Restaurant',
-      attraction: 'Attraction',
-      transport: 'Transport',
-      entertainment: 'Entertainment',
-      shopping: 'Shopping',
-      medical: 'Medical',
-      other: 'Other'
+      hotel: 'Отель',
+      restaurant: 'Ресторан',
+      attraction: 'Достопримечательность',
+      transport: 'Транспорт',
+      entertainment: 'Развлечения',
+      shopping: 'Шоппинг',
+      medical: 'Медицина',
+      other: 'Другое'
     };
-    return labels[type] || 'Other';
+    return labels[type] || 'Другое';
   };
 
   if (isLoading) {
     return (
       <Box sx={{ display: 'flex', justifyContent: 'center', p: 3 }}>
-        <Typography>Loading...</Typography>
+        <Typography>Загрузка...</Typography>
       </Box>
     );
   }
@@ -91,7 +91,7 @@ export function ServicesList({ onEdit }: ServicesListProps): React.JSX.Element {
     return (
       <Box sx={{ textAlign: 'center', p: 3 }}>
         <Typography color="text.secondary" variant="body1">
-          No services found. Create your first service to get started.
+          Сервисы не найдены. Создайте первый сервис, чтобы начать.
         </Typography>
       </Box>
     );
@@ -103,12 +103,12 @@ export function ServicesList({ onEdit }: ServicesListProps): React.JSX.Element {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Service</TableCell>
-              <TableCell>Type</TableCell>
-              <TableCell>City</TableCell>
-              <TableCell>Objects</TableCell>
-              <TableCell>Created</TableCell>
-              <TableCell align="right">Actions</TableCell>
+              <TableCell>Сервис</TableCell>
+              <TableCell>Тип</TableCell>
+              <TableCell>Город</TableCell>
+              <TableCell>Объекты</TableCell>
+              <TableCell>Создан</TableCell>
+              <TableCell align="right">Действия</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -139,12 +139,12 @@ export function ServicesList({ onEdit }: ServicesListProps): React.JSX.Element {
                 </TableCell>
                 <TableCell>
                   <Typography variant="body2" color="text.secondary">
-                    {item.city?.name || 'Unknown'}
+                    {item.city?.name || 'Неизвестно'}
                   </Typography>
                 </TableCell>
                 <TableCell>
                   <Typography variant="body2" color="text.secondary">
-                    {item.objects?.length || 0} objects
+                    {item.objects?.length || 0} объектов
                   </Typography>
                 </TableCell>
                 <TableCell>
@@ -184,19 +184,19 @@ export function ServicesList({ onEdit }: ServicesListProps): React.JSX.Element {
         aria-describedby="delete-dialog-description"
       >
         <DialogTitle id="delete-dialog-title">
-          Delete Service
+          Удалить сервис
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="delete-dialog-description">
-            Are you sure you want to delete "{itemToDelete?.title}"? This action cannot be undone.
+            Вы уверены, что хотите удалить "{itemToDelete?.title}"? Это действие нельзя отменить.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleDeleteCancel} color="primary">
-            Cancel
+            Отмена
           </Button>
           <Button onClick={handleDeleteConfirm} color="error" variant="contained">
-            Delete
+            Удалить
           </Button>
         </DialogActions>
       </Dialog>

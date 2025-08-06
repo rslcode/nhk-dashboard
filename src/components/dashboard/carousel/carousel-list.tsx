@@ -69,7 +69,7 @@ export function CarouselList({ onEdit }: CarouselListProps): React.JSX.Element {
   if (isLoading) {
     return (
       <Box sx={{ display: 'flex', justifyContent: 'center', p: 3 }}>
-        <Typography>Loading...</Typography>
+        <Typography>Загрузка...</Typography>
       </Box>
     );
   }
@@ -78,7 +78,7 @@ export function CarouselList({ onEdit }: CarouselListProps): React.JSX.Element {
     return (
       <Box sx={{ textAlign: 'center', p: 3 }}>
         <Typography color="text.secondary" variant="body1">
-          No carousel items found. Create your first item to get started.
+          Элементы карусели не найдены. Создайте первый элемент, чтобы начать.
         </Typography>
       </Box>
     );
@@ -90,11 +90,11 @@ export function CarouselList({ onEdit }: CarouselListProps): React.JSX.Element {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Image</TableCell>
-              <TableCell>Title</TableCell>
-              <TableCell>Link</TableCell>
-              <TableCell>Created</TableCell>
-              <TableCell align="right">Actions</TableCell>
+              <TableCell>Изображение</TableCell>
+              <TableCell>Заголовок</TableCell>
+              <TableCell>Ссылка</TableCell>
+              <TableCell>Создан</TableCell>
+              <TableCell align="right">Действия</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -118,14 +118,14 @@ export function CarouselList({ onEdit }: CarouselListProps): React.JSX.Element {
                 <TableCell>
                   {item.link ? (
                     <Chip
-                      label="Has Link"
+                      label="Есть ссылка"
                       size="small"
                       color="primary"
                       variant="outlined"
                     />
                   ) : (
                     <Chip
-                      label="No Link"
+                      label="Нет ссылки"
                       size="small"
                       color="default"
                       variant="outlined"
@@ -169,19 +169,19 @@ export function CarouselList({ onEdit }: CarouselListProps): React.JSX.Element {
         aria-describedby="delete-dialog-description"
       >
         <DialogTitle id="delete-dialog-title">
-          Delete Carousel Item
+          Удалить элемент карусели
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="delete-dialog-description">
-            Are you sure you want to delete "{itemToDelete?.title}"? This action cannot be undone.
+            Вы уверены, что хотите удалить "{itemToDelete?.title}"? Это действие нельзя отменить.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleDeleteCancel} color="primary">
-            Cancel
+            Отмена
           </Button>
           <Button onClick={handleDeleteConfirm} color="error" variant="contained">
-            Delete
+            Удалить
           </Button>
         </DialogActions>
       </Dialog>

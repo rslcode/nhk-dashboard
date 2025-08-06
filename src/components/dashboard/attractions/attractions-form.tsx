@@ -31,12 +31,12 @@ interface AttractionsFormProps {
 }
 
 const categories = [
-  { value: 'religious', label: 'Religious' },
-  { value: 'cultural', label: 'Cultural' },
-  { value: 'historical', label: 'Historical' },
-  { value: 'natural', label: 'Natural' },
-  { value: 'entertainment', label: 'Entertainment' },
-  { value: 'other', label: 'Other' },
+  { value: 'religious', label: 'Религиозные' },
+  { value: 'cultural', label: 'Культурные' },
+  { value: 'historical', label: 'Исторические' },
+  { value: 'natural', label: 'Природные' },
+  { value: 'entertainment', label: 'Развлекательные' },
+  { value: 'other', label: 'Другие' },
 ];
 
 export function AttractionsForm({ open, onClose, item }: AttractionsFormProps): React.JSX.Element {
@@ -112,27 +112,27 @@ export function AttractionsForm({ open, onClose, item }: AttractionsFormProps): 
     const newErrors: Record<string, string> = {};
 
     if (!formData.title.trim()) {
-      newErrors.title = 'Title is required';
+      newErrors.title = 'Название обязательно';
     }
 
     if (!formData.description.trim()) {
-      newErrors.description = 'Description is required';
+      newErrors.description = 'Описание обязательно';
     }
 
     if (!formData.location.trim()) {
-      newErrors.location = 'Location is required';
+      newErrors.location = 'Местоположение обязательно';
     }
 
     if (formData.title.length > 255) {
-      newErrors.title = 'Title must be less than 255 characters';
+      newErrors.title = 'Название должно быть менее 255 символов';
     }
 
     if (formData.description.length > 500) {
-      newErrors.description = 'Description must be less than 500 characters';
+      newErrors.description = 'Описание должно быть менее 500 символов';
     }
 
     if (formData.location.length > 255) {
-      newErrors.location = 'Location must be less than 255 characters';
+      newErrors.location = 'Местоположение должно быть менее 255 символов';
     }
 
     setErrors(newErrors);
@@ -164,14 +164,14 @@ export function AttractionsForm({ open, onClose, item }: AttractionsFormProps): 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
       <DialogTitle>
-        {item ? 'Edit Attraction' : 'Create New Attraction'}
+        {item ? 'Редактировать достопримечательность' : 'Создать новую достопримечательность'}
       </DialogTitle>
       <form onSubmit={handleSubmit}>
         <DialogContent>
           <Stack spacing={3}>
             <TextField
               fullWidth
-              label="Title"
+              label="Название"
               value={formData.title}
               onChange={(e) => handleInputChange('title', e.target.value)}
               error={!!errors.title}
@@ -181,11 +181,11 @@ export function AttractionsForm({ open, onClose, item }: AttractionsFormProps): 
 
             <TextField
               fullWidth
-              label="Description"
+              label="Описание"
               value={formData.description}
               onChange={(e) => handleInputChange('description', e.target.value)}
               error={!!errors.description}
-              helperText={errors.description || 'Brief description of the attraction'}
+              helperText={errors.description || 'Краткое описание достопримечательности'}
               required
               multiline
               rows={3}
@@ -193,19 +193,19 @@ export function AttractionsForm({ open, onClose, item }: AttractionsFormProps): 
 
             <TextField
               fullWidth
-              label="Location"
+              label="Местоположение"
               value={formData.location}
               onChange={(e) => handleInputChange('location', e.target.value)}
               error={!!errors.location}
-              helperText={errors.location || 'City or specific location'}
+              helperText={errors.location || 'Город или конкретное место'}
               required
             />
 
             <FormControl fullWidth>
-              <InputLabel>Category</InputLabel>
+              <InputLabel>Категория</InputLabel>
               <Select
                 value={formData.category}
-                label="Category"
+                label="Категория"
                 onChange={(e) => handleInputChange('category', e.target.value)}
               >
                 {categories.map((category) => (
@@ -218,7 +218,7 @@ export function AttractionsForm({ open, onClose, item }: AttractionsFormProps): 
 
             <Box>
               <Typography variant="subtitle2" gutterBottom>
-                Attraction Image (optional)
+                Изображение достопримечательности (необязательно)
               </Typography>
               
               {previewUrl && (
@@ -249,7 +249,7 @@ export function AttractionsForm({ open, onClose, item }: AttractionsFormProps): 
                 fullWidth
                 sx={{ height: 56 }}
               >
-                {previewUrl ? 'Change Image' : 'Upload Image'}
+                {previewUrl ? 'Изменить изображение' : 'Загрузить изображение'}
                 <input
                   type="file"
                   hidden
@@ -266,14 +266,14 @@ export function AttractionsForm({ open, onClose, item }: AttractionsFormProps): 
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose} disabled={isSubmitting}>
-            Cancel
+            Отмена
           </Button>
           <Button
             type="submit"
             variant="contained"
             disabled={isSubmitting}
           >
-            {isSubmitting ? 'Saving...' : (item ? 'Update' : 'Create')}
+            {isSubmitting ? 'Сохранение...' : (item ? 'Обновить' : 'Создать')}
           </Button>
         </DialogActions>
       </form>

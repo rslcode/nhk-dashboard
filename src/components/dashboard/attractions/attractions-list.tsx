@@ -62,14 +62,14 @@ export function AttractionsList({ onEdit }: AttractionsListProps): React.JSX.Ele
 
   const getCategoryLabel = (category: string) => {
     const labels: Record<string, string> = {
-      religious: 'Religious',
-      cultural: 'Cultural',
-      historical: 'Historical',
-      natural: 'Natural',
-      entertainment: 'Entertainment',
-      other: 'Other'
+      religious: 'Религиозные',
+      cultural: 'Культурные',
+      historical: 'Исторические',
+      natural: 'Природные',
+      entertainment: 'Развлекательные',
+      other: 'Другие'
     };
-    return labels[category] || 'Other';
+    return labels[category] || 'Другие';
   };
 
   const handleDeleteClick = (item: any) => {
@@ -93,7 +93,7 @@ export function AttractionsList({ onEdit }: AttractionsListProps): React.JSX.Ele
   if (isLoading) {
     return (
       <Box sx={{ display: 'flex', justifyContent: 'center', p: 3 }}>
-        <Typography>Loading...</Typography>
+        <Typography>Загрузка...</Typography>
       </Box>
     );
   }
@@ -102,7 +102,7 @@ export function AttractionsList({ onEdit }: AttractionsListProps): React.JSX.Ele
     return (
       <Box sx={{ textAlign: 'center', p: 3 }}>
         <Typography color="text.secondary" variant="body1">
-          No attractions found. Create your first attraction to get started.
+          Достопримечательности не найдены. Создайте первую достопримечательность, чтобы начать.
         </Typography>
       </Box>
     );
@@ -114,12 +114,12 @@ export function AttractionsList({ onEdit }: AttractionsListProps): React.JSX.Ele
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Image</TableCell>
-              <TableCell>Title</TableCell>
-              <TableCell>Location</TableCell>
-              <TableCell>Category</TableCell>
-              <TableCell>Created</TableCell>
-              <TableCell align="right">Actions</TableCell>
+              <TableCell>Изображение</TableCell>
+              <TableCell>Название</TableCell>
+              <TableCell>Местоположение</TableCell>
+              <TableCell>Категория</TableCell>
+              <TableCell>Создана</TableCell>
+              <TableCell align="right">Действия</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -193,19 +193,19 @@ export function AttractionsList({ onEdit }: AttractionsListProps): React.JSX.Ele
         aria-describedby="delete-dialog-description"
       >
         <DialogTitle id="delete-dialog-title">
-          Delete Attraction
+          Удалить достопримечательность
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="delete-dialog-description">
-            Are you sure you want to delete "{itemToDelete?.title}"? This action cannot be undone.
+            Вы уверены, что хотите удалить "{itemToDelete?.title}"? Это действие нельзя отменить.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleDeleteCancel} color="primary">
-            Cancel
+            Отмена
           </Button>
           <Button onClick={handleDeleteConfirm} color="error" variant="contained">
-            Delete
+            Удалить
           </Button>
         </DialogActions>
       </Dialog>

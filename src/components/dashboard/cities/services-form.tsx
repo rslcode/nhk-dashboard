@@ -26,14 +26,14 @@ interface ServicesFormProps {
 }
 
 const serviceTypes = [
-  { value: 'hotel', label: 'Hotel' },
-  { value: 'restaurant', label: 'Restaurant' },
-  { value: 'attraction', label: 'Attraction' },
-  { value: 'transport', label: 'Transport' },
-  { value: 'entertainment', label: 'Entertainment' },
-  { value: 'shopping', label: 'Shopping' },
-  { value: 'medical', label: 'Medical' },
-  { value: 'other', label: 'Other' },
+  { value: 'hotel', label: 'Отель' },
+  { value: 'restaurant', label: 'Ресторан' },
+  { value: 'attraction', label: 'Достопримечательность' },
+  { value: 'transport', label: 'Транспорт' },
+  { value: 'entertainment', label: 'Развлечения' },
+  { value: 'shopping', label: 'Шоппинг' },
+  { value: 'medical', label: 'Медицина' },
+  { value: 'other', label: 'Другое' },
 ];
 
 export function ServicesForm({ open, onClose, item }: ServicesFormProps): React.JSX.Element {
@@ -78,19 +78,19 @@ export function ServicesForm({ open, onClose, item }: ServicesFormProps): React.
     const newErrors: Record<string, string> = {};
 
     if (!formData.title.trim()) {
-      newErrors.title = 'Service title is required';
+      newErrors.title = 'Название сервиса обязательно';
     }
 
     if (!formData.cityId) {
-      newErrors.cityId = 'City is required';
+      newErrors.cityId = 'Город обязателен';
     }
 
     if (formData.title.length > 255) {
-      newErrors.title = 'Service title must be less than 255 characters';
+      newErrors.title = 'Название сервиса должно быть менее 255 символов';
     }
 
     if (formData.description && formData.description.length > 500) {
-      newErrors.description = 'Description must be less than 500 characters';
+      newErrors.description = 'Описание должно быть менее 500 символов';
     }
 
     setErrors(newErrors);
@@ -127,37 +127,37 @@ export function ServicesForm({ open, onClose, item }: ServicesFormProps): React.
   return (
     <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
       <DialogTitle>
-        {item ? 'Edit Service' : 'Create New Service'}
+        {item ? 'Редактировать сервис' : 'Создать новый сервис'}
       </DialogTitle>
       <form onSubmit={handleSubmit}>
         <DialogContent>
           <Stack spacing={3}>
             <TextField
               fullWidth
-              label="Service Title"
+              label="Название сервиса"
               value={formData.title}
               onChange={(e) => handleInputChange('title', e.target.value)}
               error={!!errors.title}
-              helperText={errors.title || 'Enter the service title'}
+              helperText={errors.title || 'Введите название сервиса'}
               required
             />
 
             <TextField
               fullWidth
-              label="Description"
+              label="Описание"
               value={formData.description}
               onChange={(e) => handleInputChange('description', e.target.value)}
               error={!!errors.description}
-              helperText={errors.description || 'Brief description of the service (optional)'}
+              helperText={errors.description || 'Краткое описание сервиса (необязательно)'}
               multiline
               rows={3}
             />
 
             <FormControl fullWidth error={!!errors.cityId}>
-              <InputLabel>City</InputLabel>
+              <InputLabel>Город</InputLabel>
               <Select
                 value={formData.cityId}
-                label="City"
+                label="Город"
                 onChange={(e) => handleInputChange('cityId', e.target.value)}
                 required
               >
@@ -173,10 +173,10 @@ export function ServicesForm({ open, onClose, item }: ServicesFormProps): React.
             </FormControl>
 
             <FormControl fullWidth>
-              <InputLabel>Service Type</InputLabel>
+              <InputLabel>Тип сервиса</InputLabel>
               <Select
                 value={formData.type}
-                label="Service Type"
+                label="Тип сервиса"
                 onChange={(e) => handleInputChange('type', e.target.value)}
               >
                 {serviceTypes.map((type) => (
@@ -189,24 +189,24 @@ export function ServicesForm({ open, onClose, item }: ServicesFormProps): React.
 
             <Box>
               <Typography variant="subtitle2" color="text.secondary" gutterBottom>
-                Service Information
+                Информация о сервисе
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                After creating a service, you can add specific objects like hotels, restaurants, or attractions to this service.
+                После создания сервиса вы можете добавить конкретные объекты, такие как отели, рестораны или достопримечательности к этому сервису.
               </Typography>
             </Box>
           </Stack>
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose} disabled={isSubmitting}>
-            Cancel
+            Отмена
           </Button>
           <Button
             type="submit"
             variant="contained"
             disabled={isSubmitting}
           >
-            {isSubmitting ? 'Saving...' : (item ? 'Update' : 'Create')}
+            {isSubmitting ? 'Сохранение...' : (item ? 'Обновить' : 'Создать')}
           </Button>
         </DialogActions>
       </form>

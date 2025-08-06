@@ -73,11 +73,11 @@ export function CustomersTable({
                   }}
                 />
               </TableCell>
-              <TableCell>Name</TableCell>
+              <TableCell>Имя</TableCell>
               <TableCell>Email</TableCell>
-              <TableCell>Location</TableCell>
-              <TableCell>Phone</TableCell>
-              <TableCell>Signed Up</TableCell>
+              <TableCell>Местоположение</TableCell>
+              <TableCell>Телефон</TableCell>
+              <TableCell>Дата регистрации</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

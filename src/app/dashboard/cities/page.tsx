@@ -84,9 +84,9 @@ export default function CitiesPage(): React.JSX.Element {
     <Stack spacing={3}>
       <Stack direction="row" spacing={3} sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
         <div>
-          <Typography variant="h4">Cities & Services Management</Typography>
+          <Typography variant="h4">Управление городами и сервисами</Typography>
           <Typography color="text.secondary" variant="body1">
-            Manage cities and their services
+            Управляйте городами и их сервисами
           </Typography>
         </div>
         <Stack direction="row" spacing={2}>
@@ -95,25 +95,25 @@ export default function CitiesPage(): React.JSX.Element {
             onClick={handleCreateCity}
             variant="contained"
           >
-            Add City
+            Добавить город
           </Button>
           <Button
             startIcon={<PlusIcon />}
             onClick={handleCreateService}
             variant="outlined"
           >
-            Add Service
+            Добавить сервис
           </Button>
         </Stack>
       </Stack>
 
       <Card>
-        <CardHeader title="Cities & Services" />
+        <CardHeader title="Города и сервисы" />
         <CardContent>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <Tabs value={tabValue} onChange={handleTabChange} aria-label="cities tabs">
-              <Tab label="Cities" id="cities-tab-0" aria-controls="cities-tabpanel-0" />
-              <Tab label="Services" id="cities-tab-1" aria-controls="cities-tabpanel-1" />
+              <Tab label="Города" id="cities-tab-0" aria-controls="cities-tabpanel-0" />
+              <Tab label="Сервисы" id="cities-tab-1" aria-controls="cities-tabpanel-1" />
             </Tabs>
           </Box>
 
