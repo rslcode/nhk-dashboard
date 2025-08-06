@@ -24,7 +24,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { PlusIcon, ArrowLeftIcon, PencilIcon, TrashIcon, MapTrifoldIcon, AddressBookIcon } from '@phosphor-icons/react/dist/ssr';
+import { PlusIcon, ArrowLeftIcon, PencilIcon, TrashIcon, AddressBookIcon } from '@phosphor-icons/react/dist/ssr';
 import Link from 'next/link';
 
 import { useNavigation } from '@/hooks/use-navigation';
@@ -205,15 +205,7 @@ export default function ServicePage({ params }: ServicePageProps): React.JSX.Ele
                         </TableCell>
                         <TableCell>
                           <Stack direction="row" spacing={1}>
-                            {selectedObject.latitude && selectedObject.longitude && (
-                              <IconButton 
-                                size="small" 
-                                onClick={() => console.log('Show address on map:', address)} 
-                                color="info"
-                              >
-                                <MapTrifoldIcon />
-                              </IconButton>
-                            )}
+
                             <IconButton size="small" onClick={() => handleEditAddress(address)} color="primary"><PencilIcon /></IconButton>
                             <IconButton size="small" onClick={() => handleDeleteAddress(address)} color="error"><TrashIcon /></IconButton>
                           </Stack>
@@ -296,15 +288,7 @@ export default function ServicePage({ params }: ServicePageProps): React.JSX.Ele
                   <Box sx={{ mt: 'auto' }}>
                     <Stack direction="row" spacing={1} justifyContent="flex-end" alignItems="center">
                       <Stack direction="row" spacing={1}>
-                        {object.latitude && object.longitude && (
-                          <IconButton 
-                            size="small" 
-                            onClick={() => { console.log('Show object on map:', object); }} 
-                            color="info"
-                          >
-                            <MapTrifoldIcon />
-                          </IconButton>
-                        )}
+
                         <IconButton size="small" onClick={() => handleEditObject(object)} color="primary"><PencilIcon /></IconButton>
                         <IconButton size="small" onClick={() => handleDeleteObject(object)} color="error"><TrashIcon /></IconButton>
                       </Stack>

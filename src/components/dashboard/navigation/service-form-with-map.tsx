@@ -115,12 +115,12 @@ export function ServiceFormWithMap({ open, onClose, item, city }: ServiceFormWit
     <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
       <DialogTitle>
         {item ? 'Edit Service' : 'Create New Service'}
-        <Typography variant="subtitle2" color="text.secondary">
-          in {city?.name}
-        </Typography>
       </DialogTitle>
       <form onSubmit={handleSubmit}>
         <DialogContent>
+          <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 2 }}>
+            in {city?.name}
+          </Typography>
           <Stack spacing={3}>
             <FormControl fullWidth error={!!errors.type}>
               <InputLabel>Service Type</InputLabel>

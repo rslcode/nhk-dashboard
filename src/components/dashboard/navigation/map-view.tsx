@@ -27,7 +27,7 @@ export function MapView({ latitude, longitude, title, onLocationSelect }: MapVie
   const [manualLat, setManualLat] = React.useState(latitude.toString());
   const [manualLng, setManualLng] = React.useState(longitude.toString());
   const [mapError, setMapError] = React.useState(false);
-  const [selectedPosition, setSelectedPosition] = React.useState<[number, number] | null>(null);
+  const [selectedPosition, setSelectedPosition] = React.useState<[number, number] | null>([latitude, longitude]);
 
   const handleManualSubmit = () => {
     const lat = parseFloat(manualLat);
@@ -118,7 +118,6 @@ export function MapView({ latitude, longitude, title, onLocationSelect }: MapVie
         style={{ height: '100%', width: '100%' }}
         onClick={(e: LeafletMouseEvent) => {
           const newPosition: [number, number] = [e.latlng.lat, e.latlng.lng];
-          setSelectedPosition(newPosition);
           setSelectedPosition(newPosition);
           setManualLat(newPosition[0].toString());
           setManualLng(newPosition[1].toString());

@@ -15,10 +15,10 @@ import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import IconButton from '@mui/material/IconButton';
-import { MapPinIcon, MapTrifoldIcon } from '@phosphor-icons/react/dist/ssr';
+import { MapPinIcon } from '@phosphor-icons/react/dist/ssr';
 
 import { useNavigation } from '@/hooks/use-navigation';
-import { MapView } from './map-view';
+
 
 interface ObjectFormWithMapProps {
   open: boolean;
@@ -31,11 +31,12 @@ interface ObjectFormWithMapProps {
 export function ObjectFormWithMap({ open, onClose, item, service, city }: ObjectFormWithMapProps): React.JSX.Element {
   const { createObject, updateObject } = useNavigation();
   const [isSubmitting, setIsSubmitting] = React.useState(false);
-  const [showMap, setShowMap] = React.useState(false);
+
   const [formData, setFormData] = React.useState({
     title: '',
     latitude: '',
     longitude: '',
+    mapUrl: '',
   });
   const [errors, setErrors] = React.useState<Record<string, string>>({});
 
@@ -45,12 +46,14 @@ export function ObjectFormWithMap({ open, onClose, item, service, city }: Object
         title: item.title || '',
         latitude: item.latitude?.toString() || '',
         longitude: item.longitude?.toString() || '',
+        mapUrl: item?.mapUrl || '',
       });
     } else {
       setFormData({
         title: '',
         latitude: '',
         longitude: '',
+        mapUrl: '',
       });
     }
     setErrors({});
@@ -121,30 +124,9 @@ export function ObjectFormWithMap({ open, onClose, item, service, city }: Object
     }
   };
 
-  const handleMapClick = (lat: number, lng: number) => {
-    console.log('Map location selected:', lat, lng);
-    setFormData(prev => ({
-      ...prev,
-      latitude: lat.toString(),
-      longitude: lng.toString()
-    }));
-  };
 
-  const handleShowMap = () => {
-    console.log('Opening map dialog...');
-    setShowMap(true);
-  };
 
-  const handleCloseMap = () => {
-    setShowMap(false);
-  };
 
-  const handleSaveLocation = () => {
-    const lat = formData.latitude ? parseFloat(formData.latitude) : latitude;
-    const lng = formData.longitude ? parseFloat(formData.longitude) : longitude;
-    handleMapClick(lat, lng);
-    handleCloseMap();
-  };
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
@@ -167,68 +149,16 @@ export function ObjectFormWithMap({ open, onClose, item, service, city }: Object
               required
             />
 
-            <Grid container spacing={2}>
-              <Grid item xs={12} md={6}>
-                <TextField
-                  fullWidth
-                  label="Latitude"
-                  value={formData.latitude}
-                  onChange={(e) => handleInputChange('latitude', e.target.value)}
-                  error={!!errors.latitude}
-                  helperText={errors.latitude || 'Latitude coordinate (optional)'}
-                  type="number"
-                  inputProps={{ step: 'any' }}
-                />
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <TextField
-                  fullWidth
-                  label="Longitude"
-                  value={formData.longitude}
-                  onChange={(e) => handleInputChange('longitude', e.target.value)}
-                  error={!!errors.longitude}
-                  helperText={errors.longitude || 'Longitude coordinate (optional)'}
-                  type="number"
-                  inputProps={{ step: 'any' }}
-                />
-              </Grid>
-            </Grid>
 
-            <Card variant="outlined">
-              <CardContent>
-                <Stack direction="row" spacing={2} alignItems="center" sx={{ mb: 2 }}>
-                  <MapTrifoldIcon size={24} />
-                  <Typography variant="h6">
-                    Map Location
-                  </Typography>
-                </Stack>
-                
-                <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                  Click on the map to set the exact location for this object. 
-                  This will help users find the object on the map.
-                </Typography>
 
-                <Button
-                  variant="outlined"
-                  startIcon={<MapPinIcon />}
-                  onClick={handleShowMap}
-                  fullWidth
-                >
-                  {formData.latitude && formData.longitude 
-                    ? 'Change Location on Map' 
-                    : 'Set Location on Map'
-                  }
-                </Button>
-
-                {formData.latitude && formData.longitude && (
-                  <Box sx={{ mt: 2, p: 2, bgcolor: 'grey.50', borderRadius: 1 }}>
-                    <Typography variant="body2" color="text.secondary">
-                      Current coordinates: {formData.latitude}, {formData.longitude}
-                    </Typography>
-                  </Box>
-                )}
-              </CardContent>
-            </Card>
+            <TextField
+              fullWidth
+              label="Google Maps Link"
+              value={formData.mapUrl || ''}
+              onChange={(e) => handleInputChange('mapUrl', e.target.value)}
+              placeholder="https://www.google.com/maps?q=41.7151,44.8271"
+              helperText="Copy the link from Google Maps address bar and paste it here"
+            />
 
             <Box>
               <Typography variant="subtitle2" color="text.secondary" gutterBottom>
@@ -255,45 +185,7 @@ export function ObjectFormWithMap({ open, onClose, item, service, city }: Object
         </DialogActions>
       </form>
 
-      {/* Map Dialog */}
-      <Dialog
-        open={showMap}
-        onClose={handleCloseMap}
-        maxWidth="lg"
-        fullWidth
-        PaperProps={{
-          sx: {
-            height: '80vh',
-            maxHeight: '80vh',
-          }
-        }}
-      >
-        <DialogTitle>
-          Select Location on Map
-        </DialogTitle>
-        <DialogContent sx={{ p: 0, flex: 1 }}>
-          <Box sx={{ height: '100%', width: '100%', minHeight: 400 }}>
-            <MapView
-              latitude={formData.latitude ? parseFloat(formData.latitude) : 41.7151}
-              longitude={formData.longitude ? parseFloat(formData.longitude) : 44.8271}
-              title={formData.title || 'Select Location'}
-              onLocationSelect={handleMapClick}
-            />
-          </Box>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseMap}>
-            Cancel
-          </Button>
-          <Button 
-            onClick={handleSaveLocation}
-            variant="contained"
-            color="primary"
-          >
-            Save Location
-          </Button>
-        </DialogActions>
-      </Dialog>
+
     </Dialog>
   );
 } 
