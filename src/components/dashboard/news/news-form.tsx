@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
+import {DialogActions} from '@mui/material';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import FormControl from '@mui/material/FormControl';
@@ -33,7 +33,7 @@ interface NewsFormProps {
 export function NewsForm({ open, onClose, item }: NewsFormProps): React.JSX.Element {
   const { createItem, updateItem } = useNews();
   const [isSubmitting, setIsSubmitting] = React.useState(false);
-  const [formData, setFormData] = React.useState({
+  const [formData, setFormData] = React.useState<any>({
     title: '',
     description: '',
     content: '',
@@ -81,20 +81,20 @@ export function NewsForm({ open, onClose, item }: NewsFormProps): React.JSX.Elem
   }, [item, open]);
 
   const handleInputChange = (field: string, value: string | boolean) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    setFormData((prev: any) => ({ ...prev, [field]: value }));
     if (errors[field]) {
-      setErrors(prev => ({ ...prev, [field]: '' }));
+      setErrors((prev: any) => ({ ...prev, [field]: '' }));
     }
   };
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      setFormData(prev => ({ ...prev, image: file }));
+      setFormData((prev: any) => ({ ...prev, image: file }));
       const url = URL.createObjectURL(file);
       setPreviewUrl(url);
       if (errors.image) {
-        setErrors(prev => ({ ...prev, image: '' }));
+        setErrors((prev: any) => ({ ...prev, image: '' }));
       }
     }
   };
@@ -207,7 +207,7 @@ export function NewsForm({ open, onClose, item }: NewsFormProps): React.JSX.Elem
                     <IconButton
                       size="small"
                       onClick={() => {
-                        setFormData(prev => ({ ...prev, image: null }));
+                        setFormData((prev: any) => ({ ...prev, image: null }));
                         setPreviewUrl('');
                       }}
                     >

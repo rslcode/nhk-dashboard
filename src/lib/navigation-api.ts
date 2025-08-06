@@ -10,7 +10,7 @@ interface CityItem {
 interface ServiceItem {
   id: number;
   cityId: number;
-  title: string;
+  title: any;
   description?: string;
   type: string;
   createdAt: string;

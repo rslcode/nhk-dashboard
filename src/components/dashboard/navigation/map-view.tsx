@@ -116,15 +116,15 @@ export function MapView({ latitude, longitude, title, onLocationSelect }: MapVie
         center={[latitude, longitude]}
         zoom={13}
         style={{ height: '100%', width: '100%' }}
-        onClick={(e: LeafletMouseEvent) => {
-          const newPosition: [number, number] = [e.latlng.lat, e.latlng.lng];
-          setSelectedPosition(newPosition);
-          setManualLat(newPosition[0].toString());
-          setManualLng(newPosition[1].toString());
-          if (onLocationSelect) {
-            onLocationSelect(e.latlng.lat, e.latlng.lng);
-          }
-        }}
+        // onClick={(e: LeafletMouseEvent) => {
+        //   const newPosition: [number, number] = [e.latlng.lat, e.latlng.lng];
+        //   setSelectedPosition(newPosition);
+        //   setManualLat(newPosition[0].toString());
+        //   setManualLng(newPosition[1].toString());
+        //   if (onLocationSelect) {
+        //     onLocationSelect(e.latlng.lat, e.latlng.lng);
+        //   }
+        // }}
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

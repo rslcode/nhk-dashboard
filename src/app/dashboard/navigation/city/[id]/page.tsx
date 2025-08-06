@@ -13,7 +13,7 @@ import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
 import Chip from '@mui/material/Chip';
 import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
+import { DialogActions } from '@mui/material';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -86,7 +86,7 @@ export default function CityPage({ params }: CityPageProps): React.JSX.Element {
   };
 
   const getServiceTypeColor = (type: string) => {
-    const colorMap: Record<string, 'primary' | 'secondary' | 'success' | 'error' | 'warning' | 'info'> = {
+    const colorMap: Record<string, 'primary' | 'secondary' | 'success' | 'error' | 'warning' | 'info' | 'default'> = {
       hotel: 'primary',
       restaurant: 'success',
       attraction: 'info',
@@ -126,7 +126,7 @@ export default function CityPage({ params }: CityPageProps): React.JSX.Element {
         {cityServices.map((service) => {
           const serviceObjects = objects.filter(obj => obj.serviceId === service.id);
           return (
-            <Grid item xs={12} sm={6} md={4} key={service.id}>
+            <Grid size={{ xs: 12, sm: 6, md: 4 }} key={service.id}>
               <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
                 <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
                   <Stack direction="row" spacing={2} alignItems="center" sx={{ mb: 2 }}>

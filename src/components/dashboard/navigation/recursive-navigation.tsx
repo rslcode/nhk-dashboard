@@ -7,7 +7,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Chip from '@mui/material/Chip';
 import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
+import { DialogActions } from '@mui/material';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -184,14 +184,13 @@ export function RecursiveNavigation({
   };
 
   const getServiceTypeColor = (type: string) => {
-    const colors: Record<string, 'primary' | 'secondary' | 'success' | 'error' | 'warning' | 'info'> = {
+    const colors: Record<string, 'primary' | 'secondary' | 'success' | 'error' | 'warning' | 'info'| 'default'> = {
       hotel: 'primary',
       restaurant: 'secondary',
       attraction: 'success',
       transport: 'info',
       entertainment: 'warning',
       shopping: 'error',
-      medical: 'default',
       other: 'default'
     };
     return colors[type] || 'default';
@@ -256,7 +255,11 @@ export function RecursiveNavigation({
       return (
         <Grid container spacing={2}>
           {cities.map((city) => (
-            <Grid item xs={12} sm={6} md={4} key={city.id}>
+            <Grid
+              size={{ xs: 12, sm: 6, md: 4 }}
+              key={city.id}
+              component="div"
+            >
                               <Card sx={{ cursor: 'pointer', '&:hover': { boxShadow: 3 } }} onClick={() => handleCityClick(city)}>
                   <CardContent>
                     <Stack direction="row" spacing={2} alignItems="center" sx={{ mb: 2 }}>
@@ -315,8 +318,12 @@ export function RecursiveNavigation({
       const cityServices = services.filter(s => s.cityId === selectedItem.id);
       return (
         <Grid container spacing={2}>
-          {cityServices.map((service) => (
-            <Grid item xs={12} sm={6} md={4} key={service.id}>
+          {cityServices.map((service: any) => (
+            <Grid
+              size={{ xs: 12, sm: 6, md: 4 }}
+              key={service.id}
+              component="div"
+            >
               <Card sx={{ cursor: 'pointer', '&:hover': { boxShadow: 3 } }} onClick={() => handleServiceClick(service)}>
                 <CardContent>
                   <Stack direction="row" spacing={2} alignItems="center" sx={{ mb: 2 }}>
@@ -401,8 +408,12 @@ export function RecursiveNavigation({
       const serviceObjects = objects.filter(o => o.serviceId === selectedItem.id);
       return (
         <Grid container spacing={2}>
-          {serviceObjects.map((object) => (
-            <Grid item xs={12} sm={6} md={4} key={object.id}>
+          {serviceObjects.map((object: any) => (
+            <Grid
+              size={{ xs: 12, sm: 6, md: 4 }}
+              key={object.id}
+              component="div"
+            >
               <Card sx={{ cursor: 'pointer', '&:hover': { boxShadow: 3 } }} onClick={() => handleObjectClick(object)}>
                 <CardContent>
                   <Stack direction="row" spacing={2} alignItems="center" sx={{ mb: 2 }}>

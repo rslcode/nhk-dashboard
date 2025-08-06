@@ -77,7 +77,11 @@ export default function NavigationPage(): React.JSX.Element {
         {cities.map((city) => {
           const cityServices = services.filter(s => s.cityId === city.id);
           return (
-            <Grid item xs={12} sm={6} md={4} key={city.id}>
+            <Grid
+              size={{ xs: 12, sm: 6, md: 4 }}
+              key={city.id}
+              component="div"
+            >
               <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
                 <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
                   <Stack direction="row" spacing={2} alignItems="center" sx={{ mb: 2 }}>

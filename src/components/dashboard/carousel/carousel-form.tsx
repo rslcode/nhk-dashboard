@@ -4,7 +4,7 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
+import {DialogActions} from '@mui/material';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import FormControl from '@mui/material/FormControl';
@@ -31,7 +31,7 @@ interface CarouselFormProps {
 export function CarouselForm({ open, onClose, item }: CarouselFormProps): React.JSX.Element {
   const { createItem, updateItem } = useCarousel();
   const [isSubmitting, setIsSubmitting] = React.useState(false);
-  const [formData, setFormData] = React.useState({
+  const [formData, setFormData] = React.useState<any>({
     title: '',
     link: '',
     image: null as File | null,
@@ -73,7 +73,7 @@ export function CarouselForm({ open, onClose, item }: CarouselFormProps): React.
   }, [item, open]);
 
   const handleInputChange = (field: string, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    setFormData((prev: any) => ({ ...prev, [field]: value }));
     if (errors[field]) {
       setErrors(prev => ({ ...prev, [field]: '' }));
     }
@@ -82,7 +82,7 @@ export function CarouselForm({ open, onClose, item }: CarouselFormProps): React.
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      setFormData(prev => ({ ...prev, image: file }));
+      setFormData((prev: any) => ({ ...prev, image: file }));
       const url = URL.createObjectURL(file);
       setPreviewUrl(url);
       if (errors.image) {
@@ -186,7 +186,7 @@ export function CarouselForm({ open, onClose, item }: CarouselFormProps): React.
                     <IconButton
                       size="small"
                       onClick={() => {
-                        setFormData(prev => ({ ...prev, image: null }));
+                        setFormData((prev: any) => ({ ...prev, image: null }));
                         setPreviewUrl('');
                       }}
                     >

@@ -240,7 +240,7 @@ export const servicesApi = {
     return item;
   },
 
-  async getByCity(cityId: number): Promise<ServiceItem[]> {
+  async getByCity(cityId: number): Promise<any> {
     await new Promise(resolve => setTimeout(resolve, 300));
     
     const allServices = [
@@ -279,7 +279,7 @@ export const servicesApi = {
     return allServices.filter(service => service.cityId === cityId);
   },
 
-  async getByType(type: string): Promise<ServiceItem[]> {
+  async getByType(type: string): Promise<any> {
     await new Promise(resolve => setTimeout(resolve, 300));
     
     const allServices = [
