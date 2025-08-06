@@ -7,7 +7,6 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import FormHelperText from '@mui/material/FormHelperText';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
@@ -60,24 +59,24 @@ export function ObjectForm({ open, onClose, item, service, city }: ObjectFormPro
     const newErrors: Record<string, string> = {};
 
     if (!formData.title.trim()) {
-      newErrors.title = 'Object title is required';
+      newErrors.title = 'Название объекта обязательно';
     }
 
     if (formData.title.length > 255) {
-      newErrors.title = 'Object title must be less than 255 characters';
+      newErrors.title = 'Название объекта должно быть меньше 255 символов';
     }
 
     if (formData.latitude) {
       const lat = parseFloat(formData.latitude);
       if (isNaN(lat) || lat < -90 || lat > 90) {
-        newErrors.latitude = 'Latitude must be between -90 and 90';
+        newErrors.latitude = 'Широта должна быть между -90 и 90';
       }
     }
 
     if (formData.longitude) {
       const lng = parseFloat(formData.longitude);
       if (isNaN(lng) || lng < -180 || lng > 180) {
-        newErrors.longitude = 'Longitude must be between -180 and 180';
+        newErrors.longitude = 'Долгота должна быть между -180 и 180';
       }
     }
 
@@ -87,7 +86,7 @@ export function ObjectForm({ open, onClose, item, service, city }: ObjectFormPro
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    
+
     if (!validateForm()) {
       return;
     }
@@ -108,7 +107,7 @@ export function ObjectForm({ open, onClose, item, service, city }: ObjectFormPro
       }
       onClose();
     } catch (error) {
-      console.error('Error saving object:', error);
+      console.error('Ошибка при сохранении объекта:', error);
     } finally {
       setIsSubmitting(false);
     }
@@ -117,9 +116,9 @@ export function ObjectForm({ open, onClose, item, service, city }: ObjectFormPro
   return (
     <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
       <DialogTitle>
-        {item ? 'Edit Object' : 'Create New Object'}
+        {item ? 'Редактировать объект' : 'Создать новый объект'}
         <Typography variant="subtitle2" color="text.secondary">
-          in {service?.title} ({city?.name})
+          в {service?.title} ({city?.name})
         </Typography>
       </DialogTitle>
       <form onSubmit={handleSubmit}>
@@ -127,32 +126,32 @@ export function ObjectForm({ open, onClose, item, service, city }: ObjectFormPro
           <Stack spacing={3}>
             <TextField
               fullWidth
-              label="Object Title"
+              label="Название объекта"
               value={formData.title}
               onChange={(e) => handleInputChange('title', e.target.value)}
               error={!!errors.title}
-              helperText={errors.title || 'Enter the object title (e.g., hotel name, restaurant name)'}
+              helperText={errors.title || 'Введите название объекта (например, название отеля, ресторана)'}
               required
             />
 
             <Stack direction="row" spacing={2}>
               <TextField
                 fullWidth
-                label="Latitude"
+                label="Широта"
                 value={formData.latitude}
                 onChange={(e) => handleInputChange('latitude', e.target.value)}
                 error={!!errors.latitude}
-                helperText={errors.latitude || 'Latitude coordinate (optional)'}
+                helperText={errors.latitude || 'Координата широты (необязательно)'}
                 type="number"
                 inputProps={{ step: 'any' }}
               />
               <TextField
                 fullWidth
-                label="Longitude"
+                label="Долгота"
                 value={formData.longitude}
                 onChange={(e) => handleInputChange('longitude', e.target.value)}
                 error={!!errors.longitude}
-                helperText={errors.longitude || 'Longitude coordinate (optional)'}
+                helperText={errors.longitude || 'Координата долготы (необязательно)'}
                 type="number"
                 inputProps={{ step: 'any' }}
               />
@@ -160,28 +159,28 @@ export function ObjectForm({ open, onClose, item, service, city }: ObjectFormPro
 
             <Box>
               <Typography variant="subtitle2" color="text.secondary" gutterBottom>
-                Object Information
+                Информация об объекте
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                This object will be displayed on the map when users browse this service. 
-                Coordinates are optional but recommended for map display.
+                Этот объект будет отображаться на карте при просмотре данного сервиса.
+                Координаты необязательны, но рекомендуются для отображения на карте.
               </Typography>
             </Box>
           </Stack>
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose} disabled={isSubmitting}>
-            Cancel
+            Отмена
           </Button>
           <Button
             type="submit"
             variant="contained"
             disabled={isSubmitting}
           >
-            {isSubmitting ? 'Saving...' : (item ? 'Update' : 'Create')}
+            {isSubmitting ? 'Сохранение...' : (item ? 'Обновить' : 'Создать')}
           </Button>
         </DialogActions>
       </form>
     </Dialog>
   );
-} 
+}

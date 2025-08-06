@@ -241,7 +241,7 @@ export function NavigationList({
       return (
         <Box sx={{ textAlign: 'center', p: 3 }}>
           <Typography color="text.secondary" variant="body1">
-            Service not found.
+            Сервис не найден
           </Typography>
         </Box>
       );
@@ -251,7 +251,7 @@ export function NavigationList({
       <>
         <Stack direction="row" spacing={2} sx={{ mb: 3, alignItems: 'center' }}>
           <Typography variant="h6">
-            Objects in {service.title}
+            Объекты в {service.title}
           </Typography>
           <Button
             startIcon={<PlusIcon />}
@@ -259,7 +259,7 @@ export function NavigationList({
             variant="outlined"
             size="small"
           >
-            Add Object
+            Добавить объект
           </Button>
         </Stack>
 
@@ -278,7 +278,7 @@ export function NavigationList({
                       {object.title}
                     </Typography>
                   </Stack>
-                  
+
                   {object.latitude && object.longitude && (
                     <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
                       {object.latitude}, {object.longitude}
@@ -295,7 +295,7 @@ export function NavigationList({
                       onClick={() => onCreateAddress(object, service, { id: service.cityId })}
                       startIcon={<PlusIcon />}
                     >
-                      Add Address
+                      Добавить адрес
                     </Button>
                     <IconButton
                       size="small"
@@ -330,7 +330,7 @@ export function NavigationList({
       return (
         <Box sx={{ textAlign: 'center', p: 3 }}>
           <Typography color="text.secondary" variant="body1">
-            City not found.
+            Город не найден
           </Typography>
         </Box>
       );
@@ -340,7 +340,7 @@ export function NavigationList({
       <>
         <Stack direction="row" spacing={2} sx={{ mb: 3, alignItems: 'center' }}>
           <Typography variant="h6">
-            Services in {city.name}
+            Услуги в {city.name}
           </Typography>
           <Button
             startIcon={<PlusIcon />}
@@ -348,7 +348,7 @@ export function NavigationList({
             variant="outlined"
             size="small"
           >
-            Add Service
+            Добавить услугу
           </Button>
         </Stack>
 
@@ -375,7 +375,7 @@ export function NavigationList({
                       />
                     </Box>
                   </Stack>
-                  
+
                   {service.description && (
                     <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
                       {service.description}
@@ -383,7 +383,7 @@ export function NavigationList({
                   )}
 
                   <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                    {objects.filter(o => o.serviceId === service.id).length} objects
+                    {objects.filter(o => o.serviceId === service.id).length} объекты
                   </Typography>
 
                   <Stack direction="row" spacing={1}>
@@ -392,7 +392,7 @@ export function NavigationList({
                       onClick={() => onCreateObject(service, city)}
                       startIcon={<PlusIcon />}
                     >
-                      Add Object
+                      Добавить объект
                     </Button>
                     <IconButton
                       size="small"
@@ -423,7 +423,7 @@ export function NavigationList({
     return (
       <Box sx={{ textAlign: 'center', p: 3 }}>
         <Typography color="text.secondary" variant="body1">
-          No cities found. Create your first city to get started.
+          Города не найдены. Создайте свой первый город, чтобы начать.
         </Typography>
       </Box>
     );
@@ -446,7 +446,7 @@ export function NavigationList({
                     {city.name}
                   </Typography>
                 </Stack>
-                
+
                 <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
                   {services.filter(s => s.cityId === city.id).length} services
                 </Typography>
@@ -457,7 +457,7 @@ export function NavigationList({
                     onClick={() => onCreateService(city)}
                     startIcon={<PlusIcon />}
                   >
-                    Add Service
+                    Добавить услугу
                   </Button>
                   <IconButton
                     size="small"
@@ -488,22 +488,22 @@ export function NavigationList({
         aria-describedby="delete-dialog-description"
       >
         <DialogTitle id="delete-dialog-title">
-          Delete {deleteType === 'city' ? 'City' : deleteType === 'service' ? 'Service' : deleteType === 'object' ? 'Object' : 'Address'}
+          Удалить {deleteType === 'city' ? 'City' : deleteType === 'service' ? 'Service' : deleteType === 'object' ? 'Object' : 'Address'}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="delete-dialog-description">
-            Are you sure you want to delete "{itemToDelete?.name || itemToDelete?.title}"? This action cannot be undone.
+            Вы уверены, что хотите удалить? "{itemToDelete?.name || itemToDelete?.title}"? Это действие не может быть отменено.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleDeleteCancel} color="primary">
-            Cancel
+            Отмена
           </Button>
           <Button onClick={handleDeleteConfirm} color="error" variant="contained">
-            Delete
+            Удалить
           </Button>
         </DialogActions>
       </Dialog>
     </>
   );
-} 
+}

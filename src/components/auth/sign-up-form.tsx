@@ -73,11 +73,11 @@ export function SignUpForm(): React.JSX.Element {
   return (
     <Stack spacing={3}>
       <Stack spacing={1}>
-        <Typography variant="h4">Sign up</Typography>
+        <Typography variant="h4">Регистрация</Typography>
         <Typography color="text.secondary" variant="body2">
-          Already have an account?{' '}
+          Уже есть аккаунт?{' '}
           <Link component={RouterLink} href={paths.auth.signIn} underline="hover" variant="subtitle2">
-            Sign in
+            Войти
           </Link>
         </Typography>
       </Stack>
@@ -88,8 +88,8 @@ export function SignUpForm(): React.JSX.Element {
             name="firstName"
             render={({ field }) => (
               <FormControl error={Boolean(errors.firstName)}>
-                <InputLabel>First name</InputLabel>
-                <OutlinedInput {...field} label="First name" />
+                <InputLabel>Имя</InputLabel>
+                <OutlinedInput {...field} label="Имя" />
                 {errors.firstName ? <FormHelperText>{errors.firstName.message}</FormHelperText> : null}
               </FormControl>
             )}
@@ -98,10 +98,10 @@ export function SignUpForm(): React.JSX.Element {
             control={control}
             name="lastName"
             render={({ field }) => (
-              <FormControl error={Boolean(errors.firstName)}>
-                <InputLabel>Last name</InputLabel>
-                <OutlinedInput {...field} label="Last name" />
-                {errors.firstName ? <FormHelperText>{errors.firstName.message}</FormHelperText> : null}
+              <FormControl error={Boolean(errors.lastName)}>
+                <InputLabel>Фамилия</InputLabel>
+                <OutlinedInput {...field} label="Фамилия" />
+                {errors.lastName ? <FormHelperText>{errors.lastName.message}</FormHelperText> : null}
               </FormControl>
             )}
           />
@@ -110,8 +110,8 @@ export function SignUpForm(): React.JSX.Element {
             name="email"
             render={({ field }) => (
               <FormControl error={Boolean(errors.email)}>
-                <InputLabel>Email address</InputLabel>
-                <OutlinedInput {...field} label="Email address" type="email" />
+                <InputLabel>Электронная почта</InputLabel>
+                <OutlinedInput {...field} label="Электронная почта" type="email" />
                 {errors.email ? <FormHelperText>{errors.email.message}</FormHelperText> : null}
               </FormControl>
             )}
@@ -121,8 +121,8 @@ export function SignUpForm(): React.JSX.Element {
             name="password"
             render={({ field }) => (
               <FormControl error={Boolean(errors.password)}>
-                <InputLabel>Password</InputLabel>
-                <OutlinedInput {...field} label="Password" type="password" />
+                <InputLabel>Пароль</InputLabel>
+                <OutlinedInput {...field} label="Пароль" type="password" />
                 {errors.password ? <FormHelperText>{errors.password.message}</FormHelperText> : null}
               </FormControl>
             )}
@@ -136,7 +136,7 @@ export function SignUpForm(): React.JSX.Element {
                   control={<Checkbox {...field} />}
                   label={
                     <React.Fragment>
-                      I have read the <Link>terms and conditions</Link>
+                      Я прочитал(а) <Link>условия использования</Link>
                     </React.Fragment>
                   }
                 />
@@ -146,11 +146,10 @@ export function SignUpForm(): React.JSX.Element {
           />
           {errors.root ? <Alert color="error">{errors.root.message}</Alert> : null}
           <Button disabled={isPending} type="submit" variant="contained">
-            Sign up
+            Зарегистрироваться
           </Button>
         </Stack>
       </form>
-      <Alert color="warning">Created users are not persisted</Alert>
     </Stack>
   );
 }

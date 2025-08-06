@@ -21,14 +21,14 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
-import { 
-  PencilIcon, 
-  TrashIcon, 
-  BuildingsIcon, 
-  PlusIcon, 
-  MapPinIcon, 
-  PhoneIcon, 
-  EnvelopeIcon, 
+import {
+  PencilIcon,
+  TrashIcon,
+  BuildingsIcon,
+  PlusIcon,
+  MapPinIcon,
+  PhoneIcon,
+  EnvelopeIcon,
   GlobeIcon,
   MapTrifoldIcon,
   ArrowLeftIcon
@@ -63,14 +63,14 @@ interface RecursiveNavigationProps {
 }
 
 export function RecursiveNavigation({
-  onEditCity,
-  onCreateService,
-  onEditService,
-  onCreateObject,
-  onEditObject,
-  onCreateAddress,
-  onEditAddress
-}: RecursiveNavigationProps): React.JSX.Element {
+                                      onEditCity,
+                                      onCreateService,
+                                      onEditService,
+                                      onCreateObject,
+                                      onEditObject,
+                                      onCreateAddress,
+                                      onEditAddress
+                                    }: RecursiveNavigationProps): React.JSX.Element {
   const { cities, services, objects, addresses, isLoading, deleteCity, deleteService, deleteObject, deleteAddress } = useNavigation();
   const [selectedItem, setSelectedItem] = React.useState<NavigationItem | null>(null);
   const [navigationPath, setNavigationPath] = React.useState<NavigationItem[]>([]);
@@ -101,7 +101,7 @@ export function RecursiveNavigation({
         setDeleteDialogOpen(false);
         setItemToDelete(null);
       } catch (error) {
-        console.error('Error deleting item:', error);
+        console.error('Ошибка при удалении:', error);
       }
     }
   };
@@ -153,7 +153,7 @@ export function RecursiveNavigation({
       setMapLocation({
         lat: item.latitude,
         lng: item.longitude,
-        title: item.name || item.title || 'Location'
+        title: item.name || item.title || 'Местоположение'
       });
       setShowMap(true);
     }
@@ -171,7 +171,6 @@ export function RecursiveNavigation({
   };
 
   const handleShowAddressOnMap = (address: any) => {
-    // Для адресов используем координаты объекта, к которому они принадлежат
     const object = objects.find(o => o.id === address.objectId);
     if (object && object.latitude && object.longitude) {
       setMapLocation({
@@ -198,16 +197,16 @@ export function RecursiveNavigation({
 
   const getServiceTypeLabel = (type: string) => {
     const labels: Record<string, string> = {
-      hotel: 'Hotel',
-      restaurant: 'Restaurant',
-      attraction: 'Attraction',
-      transport: 'Transport',
-      entertainment: 'Entertainment',
-      shopping: 'Shopping',
-      medical: 'Medical',
-      other: 'Other'
+      hotel: 'Отель',
+      restaurant: 'Ресторан',
+      attraction: 'Достопримечательность',
+      transport: 'Транспорт',
+      entertainment: 'Развлечения',
+      shopping: 'Магазины',
+      medical: 'Медицина',
+      other: 'Другое'
     };
-    return labels[type] || 'Other';
+    return labels[type] || 'Другое';
   };
 
   const buildNavigationTree = (): NavigationItem[] => {
@@ -251,7 +250,6 @@ export function RecursiveNavigation({
 
   const renderCurrentLevel = () => {
     if (!selectedItem) {
-      // Показываем города
       return (
         <Grid container spacing={2}>
           {cities.map((city) => (
@@ -260,53 +258,53 @@ export function RecursiveNavigation({
               key={city.id}
               component="div"
             >
-                              <Card sx={{ cursor: 'pointer', '&:hover': { boxShadow: 3 } }} onClick={() => handleCityClick(city)}>
-                  <CardContent>
-                    <Stack direction="row" spacing={2} alignItems="center" sx={{ mb: 2 }}>
-                      <BuildingsIcon size={24} />
-                      <Typography variant="h6" sx={{ flexGrow: 1 }}>
-                        {city.name}
-                      </Typography>
-                    </Stack>
-                    
-                    <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                      {services.filter(s => s.cityId === city.id).length} services
+              <Card sx={{ cursor: 'pointer', '&:hover': { boxShadow: 3 } }} onClick={() => handleCityClick(city)}>
+                <CardContent>
+                  <Stack direction="row" spacing={2} alignItems="center" sx={{ mb: 2 }}>
+                    <BuildingsIcon size={24} />
+                    <Typography variant="h6" sx={{ flexGrow: 1 }}>
+                      {city.name}
                     </Typography>
+                  </Stack>
 
-                    <Stack direction="row" spacing={1}>
-                      <Button
-                        size="small"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          onCreateService(city);
-                        }}
-                        startIcon={<PlusIcon />}
-                      >
-                        Add Service
-                      </Button>
-                      <IconButton
-                        size="small"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          onEditCity(city);
-                        }}
-                        color="primary"
-                      >
-                        <PencilIcon />
-                      </IconButton>
-                      <IconButton
-                        size="small"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleDeleteClick(city, 'city');
-                        }}
-                        color="error"
-                      >
-                        <TrashIcon />
-                      </IconButton>
-                    </Stack>
-                  </CardContent>
-                </Card>
+                  <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                    {services.filter(s => s.cityId === city.id).length} сервисов
+                  </Typography>
+
+                  <Stack direction="row" spacing={1}>
+                    <Button
+                      size="small"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onCreateService(city);
+                      }}
+                      startIcon={<PlusIcon />}
+                    >
+                      Добавить сервис
+                    </Button>
+                    <IconButton
+                      size="small"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onEditCity(city);
+                      }}
+                      color="primary"
+                    >
+                      <PencilIcon />
+                    </IconButton>
+                    <IconButton
+                      size="small"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDeleteClick(city, 'city');
+                      }}
+                      color="error"
+                    >
+                      <TrashIcon />
+                    </IconButton>
+                  </Stack>
+                </CardContent>
+              </Card>
             </Grid>
           ))}
         </Grid>
@@ -314,7 +312,6 @@ export function RecursiveNavigation({
     }
 
     if (selectedItem.type === 'city') {
-      // Показываем сервисы города
       const cityServices = services.filter(s => s.cityId === selectedItem.id);
       return (
         <Grid container spacing={2}>
@@ -340,7 +337,7 @@ export function RecursiveNavigation({
                       />
                     </Box>
                   </Stack>
-                  
+
                   {service.description && (
                     <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
                       {service.description}
@@ -348,7 +345,7 @@ export function RecursiveNavigation({
                   )}
 
                   <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                    {objects.filter(o => o.serviceId === service.id).length} objects
+                    {objects.filter(o => o.serviceId === service.id).length} объектов
                   </Typography>
 
                   <Stack direction="row" spacing={1}>
@@ -360,7 +357,7 @@ export function RecursiveNavigation({
                       }}
                       startIcon={<PlusIcon />}
                     >
-                      Add Object
+                      Добавить объект
                     </Button>
                     {service.latitude && service.longitude && (
                       <IconButton
@@ -404,7 +401,6 @@ export function RecursiveNavigation({
     }
 
     if (selectedItem.type === 'service') {
-      // Показываем объекты сервиса
       const serviceObjects = objects.filter(o => o.serviceId === selectedItem.id);
       return (
         <Grid container spacing={2}>
@@ -422,7 +418,7 @@ export function RecursiveNavigation({
                       {object.title}
                     </Typography>
                   </Stack>
-                  
+
                   {object.latitude && object.longitude && (
                     <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
                       {object.latitude}, {object.longitude}
@@ -430,7 +426,7 @@ export function RecursiveNavigation({
                   )}
 
                   <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                    {addresses.filter(a => a.objectId === object.id).length} addresses
+                    {addresses.filter(a => a.objectId === object.id).length} адресов
                   </Typography>
 
                   <Stack direction="row" spacing={1}>
@@ -442,7 +438,7 @@ export function RecursiveNavigation({
                       }}
                       startIcon={<PlusIcon />}
                     >
-                      Add Address
+                      Добавить адрес
                     </Button>
                     {object.latitude && object.longitude && (
                       <IconButton
@@ -486,7 +482,6 @@ export function RecursiveNavigation({
     }
 
     if (selectedItem.type === 'object') {
-      // Показываем адреса объекта
       const objectAddresses = addresses.filter(a => a.objectId === selectedItem.id);
       return (
         <>
@@ -494,34 +489,34 @@ export function RecursiveNavigation({
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>Address</TableCell>
-                  <TableCell>Contact Info</TableCell>
-                  <TableCell>Created</TableCell>
-                  <TableCell align="right">Actions</TableCell>
+                  <TableCell>Адрес</TableCell>
+                  <TableCell>Контактная информация</TableCell>
+                  <TableCell>Создан</TableCell>
+                  <TableCell align="right">Действия</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {objectAddresses.map((address) => (
                   <TableRow key={address.id}>
-                                         <TableCell>
-                       <Typography variant="body2" fontWeight="medium">
-                         {address.title}
-                       </Typography>
-                       <Typography variant="caption" color="text.secondary" sx={{ display: 'block' }}>
-                         {address.address}
-                       </Typography>
-                       {address.description && (
-                         <Typography variant="caption" color="text.secondary" sx={{ display: 'block' }}>
-                           {address.description}
-                         </Typography>
-                       )}
-                       <Typography variant="caption" color="primary" sx={{ display: 'block', mt: 0.5 }}>
-                         {(() => {
-                           const object = objects.find(o => o.id === address.objectId);
-                           return object ? object.title : 'Unknown Object';
-                         })()}
-                       </Typography>
-                     </TableCell>
+                    <TableCell>
+                      <Typography variant="body2" fontWeight="medium">
+                        {address.title}
+                      </Typography>
+                      <Typography variant="caption" color="text.secondary" sx={{ display: 'block' }}>
+                        {address.address}
+                      </Typography>
+                      {address.description && (
+                        <Typography variant="caption" color="text.secondary" sx={{ display: 'block' }}>
+                          {address.description}
+                        </Typography>
+                      )}
+                      <Typography variant="caption" color="primary" sx={{ display: 'block', mt: 0.5 }}>
+                        {(() => {
+                          const object = objects.find(o => o.id === address.objectId);
+                          return object ? object.title : 'Неизвестный объект';
+                        })()}
+                      </Typography>
+                    </TableCell>
                     <TableCell>
                       <Stack spacing={0.5}>
                         {address.phone && (
@@ -594,14 +589,14 @@ export function RecursiveNavigation({
   if (isLoading) {
     return (
       <Box sx={{ display: 'flex', justifyContent: 'center', p: 3 }}>
-        <Typography>Loading...</Typography>
+        <Typography>Загрузка...</Typography>
       </Box>
     );
   }
 
   return (
     <>
-      {/* Breadcrumb Navigation */}
+      {/* Хлебные крошки */}
       {navigationPath.length > 0 && (
         <Stack direction="row" spacing={1} sx={{ mb: 3, alignItems: 'center' }}>
           <Button
@@ -610,7 +605,7 @@ export function RecursiveNavigation({
             variant="outlined"
             size="small"
           >
-            Back
+            Назад
           </Button>
           <Typography variant="body2" color="text.secondary">
             |
@@ -639,10 +634,10 @@ export function RecursiveNavigation({
         </Stack>
       )}
 
-      {/* Current Level Content */}
+      {/* Текущий уровень навигации */}
       {renderCurrentLevel()}
 
-      {/* Map Dialog */}
+      {/* Диалог карты */}
       <Dialog
         open={showMap}
         onClose={() => setShowMap(false)}
@@ -663,12 +658,12 @@ export function RecursiveNavigation({
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setShowMap(false)}>
-            Close
+            Закрыть
           </Button>
         </DialogActions>
       </Dialog>
 
-      {/* Delete Confirmation Dialog */}
+      {/* Диалог подтверждения удаления */}
       <Dialog
         open={deleteDialogOpen}
         onClose={handleDeleteCancel}
@@ -676,22 +671,22 @@ export function RecursiveNavigation({
         aria-describedby="delete-dialog-description"
       >
         <DialogTitle id="delete-dialog-title">
-          Delete {deleteType === 'city' ? 'City' : deleteType === 'service' ? 'Service' : deleteType === 'object' ? 'Object' : 'Address'}
+          Удалить {deleteType === 'city' ? 'город' : deleteType === 'service' ? 'сервис' : deleteType === 'object' ? 'объект' : 'адрес'}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="delete-dialog-description">
-            Are you sure you want to delete "{itemToDelete?.name || itemToDelete?.title}"? This action cannot be undone.
+            Вы уверены, что хотите удалить "{itemToDelete?.name || itemToDelete?.title}"? Это действие нельзя отменить.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleDeleteCancel} color="primary">
-            Cancel
+            Отмена
           </Button>
           <Button onClick={handleDeleteConfirm} color="error" variant="contained">
-            Delete
+            Удалить
           </Button>
         </DialogActions>
       </Dialog>
     </>
   );
-} 
+}

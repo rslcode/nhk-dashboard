@@ -160,7 +160,7 @@ export default function ServicePage({ params }: ServicePageProps): React.JSX.Ele
   if (!selectedService || !selectedCity) {
     return (
       <Container maxWidth="xl">
-        <Typography variant="h4">Service not found</Typography>
+        <Typography variant="h4">Сервис не найден</Typography>
       </Container>
     );
   }
@@ -168,7 +168,7 @@ export default function ServicePage({ params }: ServicePageProps): React.JSX.Ele
   // Show addresses for selected object
   if (selectedObject) {
     const objectAddresses = addresses.filter(addr => addr.objectId === selectedObject.id);
-    
+
     return (
       <Container maxWidth="xl">
         {/* Header with Back button, Object Title, and Add Address button */}
@@ -176,7 +176,7 @@ export default function ServicePage({ params }: ServicePageProps): React.JSX.Ele
           <IconButton onClick={handleBackToObjects}><ArrowLeftIcon /></IconButton>
           <Box sx={{ flexGrow: 1 }}>
             <Typography variant="h4" component="h1">{selectedObject.title}</Typography>
-            <Typography variant="body1" color="text.secondary">in {selectedService.title} ({selectedCity.name})</Typography>
+            <Typography variant="body1" color="text.secondary">в {selectedService.title} ({selectedCity.name})</Typography>
             {selectedObject.latitude && selectedObject.longitude && (
               <Typography variant="body2" color="text.secondary">Coordinates: {selectedObject.latitude}, {selectedObject.longitude}</Typography>
             )}
@@ -252,21 +252,21 @@ export default function ServicePage({ params }: ServicePageProps): React.JSX.Ele
           <IconButton><ArrowLeftIcon /></IconButton>
         </Link>
         <Box sx={{ flexGrow: 1 }}>
-          <Typography variant="h4" component="h1">{selectedService.title || `${selectedService.type} Services`}</Typography>
+          <Typography variant="h4" component="h1">{selectedService.title || `${selectedService.type} Услуги`}</Typography>
           <Stack direction="row" spacing={2} alignItems="center">
-            <Typography variant="body1" color="text.secondary">in {selectedCity.name}</Typography>
-            <Chip 
-              label={getServiceTypeLabel(selectedService.type)} 
-              size="small" 
-              color={getServiceTypeColor(selectedService.type)} 
-              variant="outlined" 
+            <Typography variant="body1" color="text.secondary">в {selectedCity.name}</Typography>
+            <Chip
+              label={getServiceTypeLabel(selectedService.type)}
+              size="small"
+              color={getServiceTypeColor(selectedService.type)}
+              variant="outlined"
             />
           </Stack>
           {selectedService.description && (
             <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>{selectedService.description}</Typography>
           )}
         </Box>
-        <Button variant="contained" startIcon={<PlusIcon />} onClick={handleCreateObject}>Add Object</Button>
+        <Button variant="contained" startIcon={<PlusIcon />} onClick={handleCreateObject}>Добавить объект</Button>
       </Stack>
 
       {/* Objects Grid */}
@@ -310,17 +310,17 @@ export default function ServicePage({ params }: ServicePageProps): React.JSX.Ele
 
       {/* Delete Confirmation Dialog */}
       <Dialog open={deleteDialogOpen} onClose={handleCancelDelete}>
-        <DialogTitle>Delete Object</DialogTitle>
+        <DialogTitle>Удалить объект</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Are you sure you want to delete "{objectToDelete?.title}"? This action cannot be undone and will also delete all associated addresses.
+            Вы уверены, что хотите удалить? "{objectToDelete?.title}"? Это действие не может быть отменено и также приведет к удалению всех связанных адресов.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCancelDelete}>Cancel</Button>
-          <Button onClick={handleConfirmDelete} color="error" variant="contained">Delete</Button>
+          <Button onClick={handleCancelDelete}>Отмена</Button>
+          <Button onClick={handleConfirmDelete} color="error" variant="contained">Удалить</Button>
         </DialogActions>
       </Dialog>
     </Container>
   );
-} 
+}

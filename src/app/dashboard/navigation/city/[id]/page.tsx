@@ -102,7 +102,7 @@ export default function CityPage({ params }: CityPageProps): React.JSX.Element {
   if (!selectedCity) {
     return (
       <Container maxWidth="xl">
-        <Typography variant="h4">City not found</Typography>
+        <Typography variant="h4">Город не найден</Typography>
       </Container>
     );
   }
@@ -116,9 +116,9 @@ export default function CityPage({ params }: CityPageProps): React.JSX.Element {
         </Link>
         <Box sx={{ flexGrow: 1 }}>
           <Typography variant="h4" component="h1">{selectedCity.name}</Typography>
-          <Typography variant="body1" color="text.secondary">{cityServices.length} services</Typography>
+          <Typography variant="body1" color="text.secondary">{cityServices.length} услуги</Typography>
         </Box>
-        <Button variant="contained" startIcon={<PlusIcon />} onClick={handleCreateService}>Add Service</Button>
+        <Button variant="contained" startIcon={<PlusIcon />} onClick={handleCreateService}>Добавить услугу</Button>
       </Stack>
 
       {/* Services Grid */}
@@ -131,13 +131,13 @@ export default function CityPage({ params }: CityPageProps): React.JSX.Element {
                 <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
                   <Stack direction="row" spacing={2} alignItems="center" sx={{ mb: 2 }}>
                     <Box sx={{ flexGrow: 1 }}>
-                      <Typography variant="h6" gutterBottom>{service.title || `${service.type} Services`}</Typography>
-                      <Typography variant="body2" color="text.secondary">{service.description || `Services of type ${service.type}`}</Typography>
-                      <Chip 
-                        label={getServiceTypeLabel(service.type)} 
-                        size="small" 
-                        color={getServiceTypeColor(service.type)} 
-                        variant="outlined" 
+                      <Typography variant="h6" gutterBottom>{service.title || `${service.type} Услуги`}</Typography>
+                      <Typography variant="body2" color="text.secondary">{service.description || `Услуги типа ${service.type}`}</Typography>
+                      <Chip
+                        label={getServiceTypeLabel(service.type)}
+                        size="small"
+                        color={getServiceTypeColor(service.type)}
+                        variant="outlined"
                         sx={{ mt: 1 }}
                       />
                     </Box>
@@ -145,7 +145,7 @@ export default function CityPage({ params }: CityPageProps): React.JSX.Element {
                   <Box sx={{ mt: 'auto' }}>
                     <Stack direction="row" spacing={1} justifyContent="space-between" alignItems="center">
                       <Link href={`/dashboard/navigation/service/${service.id}`} passHref style={{ textDecoration: 'none' }}>
-                        <Button variant="outlined" size="small" sx={{ textTransform: 'none' }}>View Objects</Button>
+                        <Button variant="outlined" size="small" sx={{ textTransform: 'none' }}>Просмотр объектов</Button>
                       </Link>
                       <Stack direction="row" spacing={1}>
                         <IconButton size="small" onClick={() => handleEditService(service)} color="primary"><PencilIcon /></IconButton>
@@ -165,17 +165,17 @@ export default function CityPage({ params }: CityPageProps): React.JSX.Element {
 
       {/* Delete Confirmation Dialog */}
       <Dialog open={deleteDialogOpen} onClose={handleCancelDelete}>
-        <DialogTitle>Delete Service</DialogTitle>
+        <DialogTitle>Удалить службу</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Are you sure you want to delete "{serviceToDelete?.title || serviceToDelete?.type + ' Services'}"? This action cannot be undone and will also delete all associated objects and addresses.
+            Вы уверены, что хотите удалить? "{serviceToDelete?.title || serviceToDelete?.type + ' Услуги'}"? Это действие не может быть отменено и также приведет к удалению всех связанных объектов и адресов.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCancelDelete}>Cancel</Button>
-          <Button onClick={handleConfirmDelete} color="error" variant="contained">Delete</Button>
+          <Button onClick={handleConfirmDelete} color="error" variant="contained">Удалить</Button>
         </DialogActions>
       </Dialog>
     </Container>
   );
-} 
+}

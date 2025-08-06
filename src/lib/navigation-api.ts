@@ -108,7 +108,7 @@ export const navigationApi = {
   // Cities
   async getCities(): Promise<CityItem[]> {
     await new Promise(resolve => setTimeout(resolve, 500));
-    
+
     return [
       {
         id: 1,
@@ -133,31 +133,31 @@ export const navigationApi = {
 
   async createCity(data: CreateCityData): Promise<CityItem> {
     await new Promise(resolve => setTimeout(resolve, 1000));
-    
+
     const newCity: CityItem = {
       id: Date.now(),
       name: data.name,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };
-    
+
     console.log('City created:', newCity);
-    
+
     return newCity;
   },
 
   async updateCity(id: number, data: UpdateCityData): Promise<CityItem> {
     await new Promise(resolve => setTimeout(resolve, 1000));
-    
+
     const updatedCity: CityItem = {
       id,
       name: data.name || "Updated City",
       createdAt: "2024-01-01T00:00:00.000Z",
       updatedAt: new Date().toISOString(),
     };
-    
+
     console.log('City updated:', updatedCity);
-    
+
     return updatedCity;
   },
 
@@ -169,13 +169,13 @@ export const navigationApi = {
   // Services
   async getServices(): Promise<ServiceItem[]> {
     await new Promise(resolve => setTimeout(resolve, 500));
-    
+
     return [
       {
         id: 1,
         cityId: 1,
         title: "Отели и гостиницы",
-        description: "Services of type hotel",
+        description: "Услуги типа отель",
         type: "hotel",
         createdAt: "2024-01-01T00:00:00.000Z",
         updatedAt: "2024-01-01T00:00:00.000Z"
@@ -184,7 +184,7 @@ export const navigationApi = {
         id: 2,
         cityId: 1,
         title: "Рестораны и кафе",
-        description: "Services of type restaurant",
+        description: "Услуги типа ресторан",
         type: "restaurant",
         createdAt: "2024-01-01T00:00:00.000Z",
         updatedAt: "2024-01-01T00:00:00.000Z"
@@ -193,7 +193,7 @@ export const navigationApi = {
         id: 3,
         cityId: 1,
         title: "Достопримечательности",
-        description: "Services of type attraction",
+        description: "Услуги типа достопримечательность",
         type: "attraction",
         createdAt: "2024-01-01T00:00:00.000Z",
         updatedAt: "2024-01-01T00:00:00.000Z"
@@ -202,7 +202,7 @@ export const navigationApi = {
         id: 4,
         cityId: 2,
         title: "Отели и гостиницы",
-        description: "Services of type hotel",
+        description: "Услуги типа отель",
         type: "hotel",
         createdAt: "2024-01-02T00:00:00.000Z",
         updatedAt: "2024-01-02T00:00:00.000Z"
@@ -211,7 +211,7 @@ export const navigationApi = {
         id: 5,
         cityId: 2,
         title: "Рестораны и кафе",
-        description: "Services of type restaurant",
+        description: "Услуги типа ресторан",
         type: "restaurant",
         createdAt: "2024-01-02T00:00:00.000Z",
         updatedAt: "2024-01-02T00:00:00.000Z"
@@ -220,17 +220,18 @@ export const navigationApi = {
         id: 6,
         cityId: 3,
         title: "Отели и гостиницы",
-        description: "Services of type hotel",
+        description: "Услуги типа отель",
         type: "hotel",
         createdAt: "2024-01-03T00:00:00.000Z",
         updatedAt: "2024-01-03T00:00:00.000Z"
       }
     ];
+
   },
 
   async createService(data: CreateServiceData): Promise<ServiceItem> {
     await new Promise(resolve => setTimeout(resolve, 1000));
-    
+
     const newService: ServiceItem = {
       id: Date.now(),
       cityId: data.cityId,
@@ -240,15 +241,15 @@ export const navigationApi = {
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };
-    
+
     console.log('Service created:', newService);
-    
+
     return newService;
   },
 
   async updateService(id: number, data: UpdateServiceData): Promise<ServiceItem> {
     await new Promise(resolve => setTimeout(resolve, 1000));
-    
+
     const updatedService: ServiceItem = {
       id,
       cityId: data.cityId || 1,
@@ -258,9 +259,9 @@ export const navigationApi = {
       createdAt: "2024-01-01T00:00:00.000Z",
       updatedAt: new Date().toISOString(),
     };
-    
+
     console.log('Service updated:', updatedService);
-    
+
     return updatedService;
   },
 
@@ -272,7 +273,7 @@ export const navigationApi = {
   // Objects
   async getObjects(): Promise<ObjectItem[]> {
     await new Promise(resolve => setTimeout(resolve, 500));
-    
+
     return [
       {
         id: 1,
@@ -342,7 +343,7 @@ export const navigationApi = {
 
   async createObject(data: CreateObjectData): Promise<ObjectItem> {
     await new Promise(resolve => setTimeout(resolve, 1000));
-    
+
     const newObject: ObjectItem = {
       id: Date.now(),
       serviceId: data.serviceId,
@@ -352,15 +353,15 @@ export const navigationApi = {
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };
-    
+
     console.log('Object created:', newObject);
-    
+
     return newObject;
   },
 
   async updateObject(id: number, data: UpdateObjectData): Promise<ObjectItem> {
     await new Promise(resolve => setTimeout(resolve, 1000));
-    
+
     const updatedObject: ObjectItem = {
       id,
       serviceId: data.serviceId || 1,
@@ -370,9 +371,9 @@ export const navigationApi = {
       createdAt: "2024-01-01T00:00:00.000Z",
       updatedAt: new Date().toISOString(),
     };
-    
+
     console.log('Object updated:', updatedObject);
-    
+
     return updatedObject;
   },
 
@@ -384,7 +385,7 @@ export const navigationApi = {
   // Addresses
   async getAddresses(): Promise<AddressItem[]> {
     await new Promise(resolve => setTimeout(resolve, 500));
-    
+
     return [
       {
         id: 1,
@@ -451,7 +452,7 @@ export const navigationApi = {
 
   async createAddress(data: CreateAddressData): Promise<AddressItem> {
     await new Promise(resolve => setTimeout(resolve, 1000));
-    
+
     const newAddress: AddressItem = {
       id: Date.now(),
       objectId: data.objectId,
@@ -464,15 +465,15 @@ export const navigationApi = {
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };
-    
+
     console.log('Address created:', newAddress);
-    
+
     return newAddress;
   },
 
   async updateAddress(id: number, data: UpdateAddressData): Promise<AddressItem> {
     await new Promise(resolve => setTimeout(resolve, 1000));
-    
+
     const updatedAddress: AddressItem = {
       id,
       objectId: data.objectId || 1,
@@ -485,9 +486,9 @@ export const navigationApi = {
       createdAt: "2024-01-01T00:00:00.000Z",
       updatedAt: new Date().toISOString(),
     };
-    
+
     console.log('Address updated:', updatedAddress);
-    
+
     return updatedAddress;
   },
 
@@ -495,4 +496,4 @@ export const navigationApi = {
     await new Promise(resolve => setTimeout(resolve, 500));
     return { message: "Address deleted successfully" };
   },
-}; 
+};

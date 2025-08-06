@@ -70,24 +70,24 @@ export function ObjectFormWithMap({ open, onClose, item, service, city }: Object
     const newErrors: Record<string, string> = {};
 
     if (!formData.title.trim()) {
-      newErrors.title = 'Object title is required';
+      newErrors.title = 'Название объекта обязательно';
     }
 
     if (formData.title.length > 255) {
-      newErrors.title = 'Object title must be less than 255 characters';
+      newErrors.title = 'Название объекта должно быть короче 255 символов';
     }
 
     if (formData.latitude) {
       const lat = parseFloat(formData.latitude);
       if (isNaN(lat) || lat < -90 || lat > 90) {
-        newErrors.latitude = 'Latitude must be between -90 and 90';
+        newErrors.latitude = 'Широта должна быть между -90 и 90';
       }
     }
 
     if (formData.longitude) {
       const lng = parseFloat(formData.longitude);
       if (isNaN(lng) || lng < -180 || lng > 180) {
-        newErrors.longitude = 'Longitude must be between -180 and 180';
+        newErrors.longitude = 'Долгота должна быть между -180 и 180';
       }
     }
 
@@ -97,7 +97,7 @@ export function ObjectFormWithMap({ open, onClose, item, service, city }: Object
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    
+
     if (!validateForm()) {
       return;
     }
@@ -118,74 +118,66 @@ export function ObjectFormWithMap({ open, onClose, item, service, city }: Object
       }
       onClose();
     } catch (error) {
-      console.error('Error saving object:', error);
+      console.error('Ошибка при сохранении объекта:', error);
     } finally {
       setIsSubmitting(false);
     }
   };
 
-
-
-
-
   return (
     <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
       <DialogTitle>
-        {item ? 'Edit Object' : 'Create New Object'}
+        {item ? 'Редактировать объект' : 'Создать новый объект'}
       </DialogTitle>
       <form onSubmit={handleSubmit}>
         <DialogContent>
           <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-            in {service?.title} ({city?.name})
+            в {service?.title} ({city?.name})
           </Typography>
           <Stack spacing={3}>
             <TextField
               fullWidth
-              label="Object Title"
+              label="Название объекта"
               value={formData.title}
               onChange={(e) => handleInputChange('title', e.target.value)}
               error={!!errors.title}
-              helperText={errors.title || 'Enter the object title (e.g., hotel name, restaurant name)'}
+              helperText={errors.title || 'Введите название объекта (например, название отеля, ресторана)'}
               required
             />
 
-
-
             <TextField
               fullWidth
-              label="Google Maps Link"
+              label="Ссылка на Google Maps"
               value={formData.mapUrl || ''}
               onChange={(e) => handleInputChange('mapUrl', e.target.value)}
               placeholder="https://www.google.com/maps?q=41.7151,44.8271"
-              helperText="Copy the link from Google Maps address bar and paste it here"
+              helperText="Скопируйте ссылку из адресной строки Google Maps и вставьте её здесь"
             />
 
             <Box>
               <Typography variant="subtitle2" color="text.secondary" gutterBottom>
-                Object Information
+                Информация об объекте
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                This object will be displayed on the map when users browse this service. 
-                Coordinates are optional but recommended for map display.
+                Этот объект будет отображаться на карте при просмотре данного сервиса.
+                Координаты не обязательны, но рекомендуются для отображения на карте.
               </Typography>
             </Box>
           </Stack>
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose} disabled={isSubmitting}>
-            Cancel
+            Отмена
           </Button>
           <Button
             type="submit"
             variant="contained"
             disabled={isSubmitting}
           >
-            {isSubmitting ? 'Saving...' : (item ? 'Update' : 'Create')}
+            {isSubmitting ? 'Сохранение...' : (item ? 'Обновить' : 'Создать')}
           </Button>
         </DialogActions>
       </form>
-
-
     </Dialog>
   );
-} 
+}

@@ -74,7 +74,7 @@ export function CustomersTable({
                 />
               </TableCell>
               <TableCell>Имя</TableCell>
-              <TableCell>Email</TableCell>
+              <TableCell>Почта</TableCell>
               <TableCell>Местоположение</TableCell>
               <TableCell>Телефон</TableCell>
               <TableCell>Дата регистрации</TableCell>
@@ -117,15 +117,15 @@ export function CustomersTable({
         </Table>
       </Box>
       <Divider />
-      <TablePagination
-        component="div"
-        count={count}
-        onPageChange={noop}
-        onRowsPerPageChange={noop}
-        page={page}
-        rowsPerPage={rowsPerPage}
-        rowsPerPageOptions={[5, 10, 25]}
-      />
+      {/*<TablePagination*/}
+      {/*  component="div"*/}
+      {/*  count={count}*/}
+      {/*  onPageChange={noop}*/}
+      {/*  onRowsPerPageChange={noop}*/}
+      {/*  page={page}*/}
+      {/*  rowsPerPage={rowsPerPage}*/}
+      {/*  rowsPerPageOptions={[5, 10, 25]}*/}
+      {/*/>*/}
     </Card>
   );
 }

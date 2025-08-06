@@ -94,7 +94,7 @@ export function CarouselList({ onEdit }: CarouselListProps): React.JSX.Element {
               <TableCell>Заголовок</TableCell>
               <TableCell>Ссылка</TableCell>
               <TableCell>Создан</TableCell>
-              <TableCell align="right">Действия</TableCell>
+              <TableCell>Действия</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -187,4 +187,4 @@ export function CarouselList({ onEdit }: CarouselListProps): React.JSX.Element {
       </Dialog>
     </>
   );
-} 
+}
