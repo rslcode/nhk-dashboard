@@ -52,11 +52,11 @@ export function CitiesForm({ open, onClose, item }: CitiesFormProps): React.JSX.
     const newErrors: Record<string, string> = {};
 
     if (!formData.name.trim()) {
-      newErrors.name = 'Название города обязательно';
+      newErrors.name = 'City name is required';
     }
 
     if (formData.name.length > 255) {
-      newErrors.name = 'Название города должно быть менее 255 символов';
+      newErrors.name = 'City name must be less than 255 characters';
     }
 
     setErrors(newErrors);
@@ -88,41 +88,41 @@ export function CitiesForm({ open, onClose, item }: CitiesFormProps): React.JSX.
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
       <DialogTitle>
-        {item ? 'Редактировать город' : 'Создать новый город'}
+        {item ? 'Edit City' : 'Create New City'}
       </DialogTitle>
       <form onSubmit={handleSubmit}>
         <DialogContent>
           <Stack spacing={3}>
             <TextField
               fullWidth
-              label="Название города"
+              label="City Name"
               value={formData.name}
               onChange={(e) => handleInputChange('name', e.target.value)}
               error={!!errors.name}
-              helperText={errors.name || 'Введите название города'}
+              helperText={errors.name || 'Enter the name of the city'}
               required
             />
 
             <Box>
               <Typography variant="subtitle2" color="text.secondary" gutterBottom>
-                Информация о городе
+                City Information
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                После создания города вы можете добавить сервисы, такие как отели, рестораны, достопримечательности и многое другое.
+                After creating a city, you can add services like hotels, restaurants, attractions, and more.
               </Typography>
             </Box>
           </Stack>
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose} disabled={isSubmitting}>
-            Отмена
+            Cancel
           </Button>
           <Button
             type="submit"
             variant="contained"
             disabled={isSubmitting}
           >
-            {isSubmitting ? 'Сохранение...' : (item ? 'Обновить' : 'Создать')}
+            {isSubmitting ? 'Saving...' : (item ? 'Update' : 'Create')}
           </Button>
         </DialogActions>
       </form>

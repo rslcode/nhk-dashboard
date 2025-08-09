@@ -13,21 +13,50 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import Select from '@mui/material/Select';
+import { usersApi } from '@/lib/users-api';
+import { toast } from 'react-hot-toast';
 
-const states = [
-  { value: 'alabama', label: 'Алабама' },
-  { value: 'new-york', label: 'Нью-Йорк' },
-  { value: 'san-francisco', label: 'Сан-Франциско' },
-  { value: 'los-angeles', label: 'Лос-Анджелес' },
-] as const;
+
 
 export function AccountDetailsForm(): React.JSX.Element {
+  const [user, setUser] = React.useState<any>(null);
+
+  React.useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const userData = await usersApi.findMe();
+        setUser(userData);
+      } catch (error) {
+        console.error('Failed to fetch user:', error);
+        toast.error('Failed to load user data.');
+      }
+    };
+    fetchUser();
+  }, []);
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const updatedData: { [key: string]: string } = {};
+    formData.forEach((value, key) => {
+      updatedData[key] = value as string;
+    });
+
+    try {
+      await usersApi.update(updatedData);
+      toast.success('Profile updated successfully!');
+    } catch (error) {
+      console.error('Failed to update user:', error);
+      toast.error('Failed to update profile.');
+    }
+  };
+
+  if (!user) {
+    return <></>; // Or a loading spinner
+  }
+
   return (
-    <form
-      onSubmit={(event) => {
-        event.preventDefault();
-      }}
-    >
+    <form onSubmit={handleSubmit}>
       <Card>
         <CardHeader subheader="Информацию можно редактировать" title="Профиль" />
         <Divider />
@@ -35,13 +64,12 @@ export function AccountDetailsForm(): React.JSX.Element {
           <Grid container spacing={3}>
             <Grid
               size={{
-                md: 6,
                 xs: 12,
               }}
             >
               <FormControl fullWidth required>
                 <InputLabel>Имя</InputLabel>
-                <OutlinedInput defaultValue="София" label="Имя" name="firstName" />
+                <OutlinedInput defaultValue={user.firstName} label="Имя" name="firstName" />
               </FormControl>
             </Grid>
             <Grid
@@ -52,20 +80,10 @@ export function AccountDetailsForm(): React.JSX.Element {
             >
               <FormControl fullWidth required>
                 <InputLabel>Фамилия</InputLabel>
-                <OutlinedInput defaultValue="Риверс" label="Фамилия" name="lastName" />
+                <OutlinedInput defaultValue={user.lastName} label="Фамилия" name="lastName" />
               </FormControl>
             </Grid>
-            <Grid
-              size={{
-                md: 6,
-                xs: 12,
-              }}
-            >
-              <FormControl fullWidth required>
-                <InputLabel>Электронная почта</InputLabel>
-                <OutlinedInput defaultValue="sofia@devias.io" label="Электронная почта" name="email" />
-              </FormControl>
-            </Grid>
+            
             <Grid
               size={{
                 md: 6,
@@ -74,42 +92,16 @@ export function AccountDetailsForm(): React.JSX.Element {
             >
               <FormControl fullWidth>
                 <InputLabel>Телефон</InputLabel>
-                <OutlinedInput label="Телефон" name="phone" type="tel" />
+                <OutlinedInput defaultValue={user.phone || ''} label="Телефон" name="phone" type="tel" />
               </FormControl>
             </Grid>
-            <Grid
-              size={{
-                md: 6,
-                xs: 12,
-              }}
-            >
-              <FormControl fullWidth>
-                <InputLabel>Штат</InputLabel>
-                <Select defaultValue="Нью-Йорк" label="Штат" name="state" variant="outlined">
-                  {states.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </Grid>
-            <Grid
-              size={{
-                md: 6,
-                xs: 12,
-              }}
-            >
-              <FormControl fullWidth>
-                <InputLabel>Город</InputLabel>
-                <OutlinedInput label="Город" />
-              </FormControl>
-            </Grid>
+
+            
           </Grid>
         </CardContent>
         <Divider />
         <CardActions sx={{ justifyContent: 'flex-end' }}>
-          <Button variant="contained">Сохранить</Button>
+          <Button type="submit" variant="contained">Сохранить</Button>
         </CardActions>
       </Card>
     </form>

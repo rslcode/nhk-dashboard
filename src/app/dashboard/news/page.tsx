@@ -36,9 +36,9 @@ export default function NewsPage(): React.JSX.Element {
     <Stack spacing={3}>
       <Stack direction="row" spacing={3} sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
         <div>
-          <Typography variant="h4">Управление новостями</Typography>
+          <Typography variant="h4">News Management</Typography>
           <Typography color="text.secondary" variant="body1">
-            Управляйте новостными статьями для вашего сайта
+            Manage news articles for your website
           </Typography>
         </div>
         <Button
@@ -46,12 +46,12 @@ export default function NewsPage(): React.JSX.Element {
           onClick={handleCreate}
           variant="contained"
         >
-          Добавить новость
+          Add News Article
         </Button>
       </Stack>
 
       <Card>
-        <CardHeader title="Новостные статьи" />
+        <CardHeader title="News Articles" />
         <CardContent>
           <NewsList onEdit={handleEdit} />
         </CardContent>

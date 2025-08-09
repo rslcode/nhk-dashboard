@@ -36,9 +36,9 @@ export default function CarouselPage(): React.JSX.Element {
     <Stack spacing={3}>
       <Stack direction="row" spacing={3} sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
         <div>
-          <Typography variant="h4">Управление каруселью</Typography>
+          <Typography variant="h4">Carousel Management</Typography>
           <Typography color="text.secondary" variant="body1">
-            Управляйте элементами карусели для вашего сайта
+            Manage carousel items for your website
           </Typography>
         </div>
         <Button
@@ -46,12 +46,12 @@ export default function CarouselPage(): React.JSX.Element {
           onClick={handleCreate}
           variant="contained"
         >
-          Добавить элемент карусели
+          Add Carousel Item
         </Button>
       </Stack>
 
       <Card>
-        <CardHeader title="Элементы карусели" />
+        <CardHeader title="Carousel Items" />
         <CardContent>
           <CarouselList onEdit={handleEdit} />
         </CardContent>

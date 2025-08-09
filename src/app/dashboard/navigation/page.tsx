@@ -66,10 +66,10 @@ export default function NavigationPage(): React.JSX.Element {
       {/* Header with Add City button */}
       <Stack direction="row" spacing={2} alignItems="center" sx={{ mb: 4 }}>
         <Box sx={{ flexGrow: 1 }}>
-          <Typography variant="h4" component="h1">Навигация</Typography>
-          <Typography variant="body1" color="text.secondary">Управляйте городами, сервисами, объектами и адресами</Typography>
+          <Typography variant="h4" component="h1">Navigation</Typography>
+          <Typography variant="body1" color="text.secondary">Manage cities, services, objects, and addresses</Typography>
         </Box>
-        <Button variant="contained" startIcon={<PlusIcon />} onClick={handleCreateCity}>Добавить город</Button>
+        <Button variant="contained" startIcon={<PlusIcon />} onClick={handleCreateCity}>Add City</Button>
       </Stack>
 
       {/* Cities Grid */}
@@ -88,13 +88,13 @@ export default function NavigationPage(): React.JSX.Element {
                     <BuildingsIcon size={24} />
                     <Box sx={{ flexGrow: 1 }}>
                       <Typography variant="h6" sx={{ flexGrow: 1 }}>{city.name}</Typography>
-                      <Typography variant="body2" color="text.secondary">{cityServices.length} сервисов</Typography>
+                      <Typography variant="body2" color="text.secondary">{cityServices.length} services</Typography>
                     </Box>
                   </Stack>
                   <Box sx={{ mt: 'auto' }}>
                     <Stack direction="row" spacing={1} justifyContent="space-between" alignItems="center">
                       <Link href={`/dashboard/navigation/city/${city.id}`} passHref style={{ textDecoration: 'none' }}>
-                        <Button variant="outlined" size="small" sx={{ textTransform: 'none' }}>Просмотр сервисов</Button>
+                        <Button variant="outlined" size="small" sx={{ textTransform: 'none' }}>View Services</Button>
                       </Link>
                       <Stack direction="row" spacing={1}>
                         <IconButton size="small" onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleEditCity(city); }} color="primary"><PencilIcon /></IconButton>
@@ -114,15 +114,15 @@ export default function NavigationPage(): React.JSX.Element {
 
       {/* Delete Confirmation Dialog */}
       <Dialog open={deleteDialogOpen} onClose={handleCancelDelete}>
-        <DialogTitle>Удалить город</DialogTitle>
+        <DialogTitle>Delete City</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Вы уверены, что хотите удалить "{cityToDelete?.name}"? Это действие нельзя отменить и также удалит все связанные сервисы, объекты и адреса.
+            Are you sure you want to delete "{cityToDelete?.name}"? This action cannot be undone and will also delete all associated services, objects, and addresses.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCancelDelete}>Отмена</Button>
-          <Button onClick={handleConfirmDelete} color="error" variant="contained">Удалить</Button>
+          <Button onClick={handleCancelDelete}>Cancel</Button>
+          <Button onClick={handleConfirmDelete} color="error" variant="contained">Delete</Button>
         </DialogActions>
       </Dialog>
     </Container>

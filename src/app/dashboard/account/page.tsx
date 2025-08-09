@@ -25,12 +25,10 @@ export default function Page(): React.JSX.Element {
             xs: 12,
           }}
         >
-          <AccountInfo />
+          {/*<AccountInfo />*/}
         </Grid>
         <Grid
           size={{
-            lg: 8,
-            md: 6,
             xs: 12,
           }}
         >

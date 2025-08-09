@@ -32,8 +32,18 @@ export interface SignInWithPasswordParams {
   password: string;
 }
 
+export interface SignInWithPhoneAndPasswordParams {
+  phone: string;
+  password: string;
+}
+
 export interface ResetPasswordParams {
   email: string;
+}
+
+interface LoginResponse {
+  accessToken: string;
+  user: User;
 }
 
 class AuthClient {
@@ -54,17 +64,57 @@ class AuthClient {
   async signInWithPassword(params: SignInWithPasswordParams): Promise<{ error?: string }> {
     const { email, password } = params;
 
-    // Make API request
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/users/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
 
-    // We do not handle the API, so we'll check if the credentials match with the hardcoded ones.
-    if (email !== 'sofia@devias.io' || password !== 'Secret1') {
-      return { error: 'Invalid credentials' };
+      if (!response.ok) {
+        const errorData = await response.json();
+        return { error: errorData.message || 'Login failed' };
+      }
+
+      const data: LoginResponse = await response.json();
+      localStorage.setItem('custom-auth-token', data.accessToken);
+      localStorage.setItem('user-data', JSON.stringify(data.user));
+
+      return {};
+    } catch (err) {
+      console.error(err);
+      return { error: 'An unexpected error occurred' };
     }
+  }
 
-    const token = generateToken();
-    localStorage.setItem('custom-auth-token', token);
+  async signInWithPhoneAndPassword(params: SignInWithPhoneAndPasswordParams): Promise<{ error?: string }> {
+    const { phone, password } = params;
 
-    return {};
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/users/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ phone, password }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        return { error: errorData.message || 'Login failed' };
+      }
+
+      const data: LoginResponse = await response.json();
+      localStorage.setItem('custom-auth-token', data.accessToken);
+      localStorage.setItem('user-data', JSON.stringify(data.user));
+
+      return {};
+    } catch (err) {
+      console.error(err);
+      return { error: 'An unexpected error occurred' };
+    }
   }
 
   async resetPassword(_: ResetPasswordParams): Promise<{ error?: string }> {
@@ -76,20 +126,39 @@ class AuthClient {
   }
 
   async getUser(): Promise<{ data?: User | null; error?: string }> {
-    // Make API request
-
-    // We do not handle the API, so just check if we have a token in localStorage.
     const token = localStorage.getItem('custom-auth-token');
 
     if (!token) {
       return { data: null };
     }
 
-    return { data: user };
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/users/findMe`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        localStorage.removeItem('custom-auth-token');
+        localStorage.removeItem('user-data');
+        return { data: null, error: 'Failed to fetch user data' };
+      }
+
+      const userData: User = await response.json();
+      localStorage.setItem('user-data', JSON.stringify(userData));
+      return { data: userData };
+    } catch (e) {
+      console.error('Failed to fetch user data from API', e);
+      return { data: null, error: 'An unexpected error occurred' };
+    }
   }
 
   async signOut(): Promise<{ error?: string }> {
     localStorage.removeItem('custom-auth-token');
+    localStorage.removeItem('user-data');
 
     return {};
   }
