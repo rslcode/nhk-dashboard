@@ -1,7 +1,6 @@
 'use client';
 
 import * as React from 'react';
-import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
@@ -36,9 +35,9 @@ export default function CarouselPage(): React.JSX.Element {
     <Stack spacing={3}>
       <Stack direction="row" spacing={3} sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
         <div>
-          <Typography variant="h4">Carousel Management</Typography>
+          <Typography variant="h4">Управление каруселью</Typography>
           <Typography color="text.secondary" variant="body1">
-            Manage carousel items for your website
+            Управление элементами карусели на вашем сайте
           </Typography>
         </div>
         <Button
@@ -46,12 +45,12 @@ export default function CarouselPage(): React.JSX.Element {
           onClick={handleCreate}
           variant="contained"
         >
-          Add Carousel Item
+          Добавить элемент карусели
         </Button>
       </Stack>
 
       <Card>
-        <CardHeader title="Carousel Items" />
+        <CardHeader title="Элементы карусели" />
         <CardContent>
           <CarouselList onEdit={handleEdit} />
         </CardContent>
@@ -66,4 +65,4 @@ export default function CarouselPage(): React.JSX.Element {
       )}
     </Stack>
   );
-} 
+}

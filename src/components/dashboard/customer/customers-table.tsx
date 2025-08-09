@@ -24,12 +24,46 @@ function noop(): void {
 
 export interface Customer {
   id: string;
-  avatar: string;
-  name: string;
-  email: string;
-  address: { city: string; state: string; country: string; street: string };
   phone: string;
-  createdAt: Date;
+  lastName: string;
+  firstName: string;
+  middleName: string;
+  birthDate: string;
+  gender: string;
+  foreignLastName: string;
+  foreignFirstName: string;
+  citizenship: string;
+  issueCountry: string;
+  issueDate: string;
+  passportNumber: string;
+  expiryDate: string;
+  fms: string;
+  russianPassportNumber: string;
+  passportTerm: string;
+  russianExpiryDate: string;
+  issuedBy: string;
+  issuedDate: string;
+  departmentCode: string;
+  residence: string;
+  snils: string;
+  inn: string;
+  postalCode: string;
+  region: string;
+  district: string;
+  street: string;
+  house: string;
+  building: string;
+  structure: string;
+  apartment: string;
+  foreignPassportFile: string;
+  russianPassportFile: string;
+  visaPhotoFile: string;
+  selfieWithPassportFile: string;
+  foreignPassportFileUrl: string;
+  russianPassportFileUrl: string;
+  visaPhotoFileUrl: string;
+  selfieWithPassportFileUrl: string;
+  roles: string[];
 }
 
 interface CustomersTableProps {
@@ -73,11 +107,12 @@ export function CustomersTable({
                   }}
                 />
               </TableCell>
-              <TableCell>Name</TableCell>
-              <TableCell>Email</TableCell>
-              <TableCell>Location</TableCell>
-              <TableCell>Phone</TableCell>
-              <TableCell>Signed Up</TableCell>
+              <TableCell>Имя</TableCell>
+              <TableCell>Фамилия</TableCell>
+              <TableCell>Отчество</TableCell>
+              <TableCell>Телефон</TableCell>
+              <TableCell>Гражданство</TableCell>
+              <TableCell>Дата рождения</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -99,25 +134,25 @@ export function CustomersTable({
                     />
                   </TableCell>
                   <TableCell>
-                    <Stack sx={{ alignItems: 'center' }} direction="row" spacing={2}>
-                      <Avatar src={row.avatar} />
-                      <Typography variant="subtitle2">{row.name}</Typography>
-                    </Stack>
+                    <Typography variant="subtitle2">{row.firstName}</Typography>
                   </TableCell>
-                  <TableCell>{row.email}</TableCell>
                   <TableCell>
-                    {row.address.city}, {row.address.state}, {row.address.country}
+                    <Typography variant="subtitle2">{row.lastName}</Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="subtitle2">{row.middleName}</Typography>
                   </TableCell>
                   <TableCell>{row.phone}</TableCell>
-                  <TableCell>{dayjs(row.createdAt).format('MMM D, YYYY')}</TableCell>
+                  <TableCell>{row.citizenship}</TableCell>
+                  <TableCell>{dayjs(row.birthDate).format('DD.MM.YYYY')}</TableCell>
                 </TableRow>
               );
             })}
           </TableBody>
         </Table>
       </Box>
-      <Divider />
-      <TablePagination
+      {/* <Divider /> */}
+      {/* <TablePagination
         component="div"
         count={count}
         onPageChange={noop}
@@ -125,7 +160,7 @@ export function CustomersTable({
         page={page}
         rowsPerPage={rowsPerPage}
         rowsPerPageOptions={[5, 10, 25]}
-      />
+      /> */}
     </Card>
   );
 }

@@ -15,4 +15,9 @@ export const usersApi = {
     const response = await API.post('/users/resetPassword', data);
     return response.data;
   },
+
+  async findAll(): Promise<any> {
+    const response = await API.get('/users/findAll');
+    return response.data;
+  },
 };
