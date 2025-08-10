@@ -116,20 +116,19 @@ export function AttractionsList({ onEdit }: AttractionsListProps): React.JSX.Ele
             <TableRow>
               <TableCell>Изображение</TableCell>
               <TableCell>Название</TableCell>
-              <TableCell>Местоположение</TableCell>
-              <TableCell>Категория</TableCell>
+              <TableCell>Описание</TableCell>
               <TableCell>Создана</TableCell>
               <TableCell align="right">Действия</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {items.map((item) => (
+            {items.map((item: any) => (
               <TableRow key={item.id}>
                 <TableCell>
                   <Card sx={{ width: 80, height: 60 }}>
                     <CardMedia
                       component="img"
-                      image={item.image ? `http://localhost:3000${item.image}` : getPlaceholderImage(item.id)}
+                      image={item.cover}
                       alt={item.title}
                       sx={{ width: '100%', height: '100%', objectFit: 'cover' }}
                     />
@@ -139,23 +138,14 @@ export function AttractionsList({ onEdit }: AttractionsListProps): React.JSX.Ele
                   <Typography variant="body2" fontWeight="medium">
                     {item.title}
                   </Typography>
-                  <Typography variant="caption" color="text.secondary" sx={{ display: 'block', maxWidth: 300 }}>
+                </TableCell>
+
+                <TableCell>
+                  <Typography variant="body2" fontWeight="medium">
                     {item.description}
                   </Typography>
                 </TableCell>
-                <TableCell>
-                  <Typography variant="body2" color="text.secondary">
-                    {item.location}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Chip
-                    label={getCategoryLabel(item.category)}
-                    size="small"
-                    color={getCategoryColor(item.category)}
-                    variant="outlined"
-                  />
-                </TableCell>
+
                 <TableCell>
                   <Typography variant="body2" color="text.secondary">
                     {new Date(item.createdAt).toLocaleDateString()}
@@ -211,4 +201,4 @@ export function AttractionsList({ onEdit }: AttractionsListProps): React.JSX.Ele
       </Dialog>
     </>
   );
-} 
+}

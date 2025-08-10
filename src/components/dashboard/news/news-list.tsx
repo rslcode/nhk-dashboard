@@ -93,19 +93,18 @@ export function NewsList({ onEdit }: NewsListProps): React.JSX.Element {
               <TableCell>Изображение</TableCell>
               <TableCell>Заголовок</TableCell>
               <TableCell>Описание</TableCell>
-              <TableCell>Статус</TableCell>
               <TableCell>Создана</TableCell>
               <TableCell align="right">Действия</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {items.map((item) => (
+            {items.map((item: any) => (
               <TableRow key={item.id}>
                 <TableCell>
                   <Card sx={{ width: 80, height: 60 }}>
                     <CardMedia
                       component="img"
-                      image={item.image ? `http://localhost:3000${item.image}` : getPlaceholderImage(item.id)}
+                      image={item.cover}
                       alt={item.title}
                       sx={{ width: '100%', height: '100%', objectFit: 'cover' }}
                     />
@@ -120,23 +119,6 @@ export function NewsList({ onEdit }: NewsListProps): React.JSX.Element {
                   <Typography variant="body2" color="text.secondary" sx={{ maxWidth: 300 }}>
                     {item.description}
                   </Typography>
-                </TableCell>
-                <TableCell>
-                  {item.isPublished ? (
-                    <Chip
-                      label="Опубликовано"
-                      size="small"
-                      color="success"
-                      variant="outlined"
-                    />
-                  ) : (
-                    <Chip
-                      label="Черновик"
-                      size="small"
-                      color="default"
-                      variant="outlined"
-                    />
-                  )}
                 </TableCell>
                 <TableCell>
                   <Typography variant="body2" color="text.secondary">
@@ -193,4 +175,4 @@ export function NewsList({ onEdit }: NewsListProps): React.JSX.Element {
       </Dialog>
     </>
   );
-} 
+}

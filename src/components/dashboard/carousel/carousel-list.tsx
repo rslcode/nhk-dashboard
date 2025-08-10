@@ -98,13 +98,13 @@ export function CarouselList({ onEdit }: CarouselListProps): React.JSX.Element {
             </TableRow>
           </TableHead>
           <TableBody>
-            {items.map((item) => (
+            {items.map((item: any) => (
               <TableRow key={item.id}>
                 <TableCell>
                   <Card sx={{ width: 80, height: 60 }}>
                     <CardMedia
                       component="img"
-                      image={getPlaceholderImage(item.id)}
+                      image={item.imageUrl}
                       alt={item.title}
                       sx={{ width: '100%', height: '100%', objectFit: 'cover' }}
                     />

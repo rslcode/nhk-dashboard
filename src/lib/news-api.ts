@@ -1,12 +1,15 @@
-const API_BASE_URL = 'http://localhost:3000/news';
+import { API } from "@/lib/api";
+
+
+
+
 
 interface NewsItem {
   id: number;
   title: string;
   description: string;
-  content: string;
-  image?: string;
-  isPublished: boolean;
+  additionalInformation?: string;
+  cover: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -14,144 +17,89 @@ interface NewsItem {
 interface CreateNewsData {
   title: string;
   description: string;
-  content: string;
-  image?: File;
-  isPublished: boolean;
+  additionalInformation?: string;
+  cover: string; // URL string, not File
 }
 
 interface UpdateNewsData {
   title?: string;
   description?: string;
-  content?: string;
-  image?: File;
-  isPublished?: boolean;
+  additionalInformation?: string;
+  cover?: string; // URL string, not File
 }
 
 class NewsApiError extends Error {
-  constructor(message: string, public status?: number) {
+  constructor(
+    message: string,
+    public status?: number
+  ) {
     super(message);
-    this.name = 'NewsApiError';
+    this.name = "NewsApiError";
   }
 }
 
-// Mock implementation for development/demo purposes
-// This simulates the API without making real HTTP requests
 export const newsApi = {
   async getAll(): Promise<NewsItem[]> {
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 500));
-    
-    // Return mock data
-    return [
-      {
-        id: 1,
-        title: "Новая статья о технологиях",
-        description: "Обзор последних технологических достижений в 2024 году",
-        content: "Полный текст статьи о технологиях. Здесь содержится подробная информация о последних достижениях в области искусственного интеллекта, машинного обучения и других технологических инноваций.",
-        image: "/uploads/news/tech-article-1.jpg",
-        isPublished: true,
-        createdAt: "2024-01-01T00:00:00.000Z",
-        updatedAt: "2024-01-01T00:00:00.000Z"
-      },
-      {
-        id: 2,
-        title: "Обновления системы безопасности",
-        description: "Важные обновления в системе безопасности платформы",
-        content: "Мы рады сообщить о важных обновлениях в системе безопасности нашей платформы. Эти изменения направлены на повышение защиты данных пользователей и предотвращение потенциальных угроз.",
-        image: "/uploads/news/security-update-2.jpg",
-        isPublished: true,
-        createdAt: "2024-01-02T00:00:00.000Z",
-        updatedAt: "2024-01-02T00:00:00.000Z"
-      },
-      {
-        id: 3,
-        title: "Черновик статьи о будущем",
-        description: "Размышления о будущем технологий",
-        content: "Это черновик статьи о будущем технологий. Здесь будут содержаться размышления о том, как технологии изменят нашу жизнь в ближайшие десятилетия.",
-        image: "/uploads/news/future-tech-3.jpg",
-        isPublished: false,
-        createdAt: "2024-01-03T00:00:00.000Z",
-        updatedAt: "2024-01-03T00:00:00.000Z"
-      }
-    ];
+    try {
+      const { data } = await API.get("/news");
+      console.log(data,'news');
+      return data;
+    } catch (error) {
+      console.error("Error fetching news data:", error);
+      throw new NewsApiError("Failed to fetch news items", 500);
+    }
   },
 
   async getById(id: number): Promise<NewsItem> {
-    await new Promise(resolve => setTimeout(resolve, 300));
-    
-    const mockItems = [
-      {
-        id: 1,
-        title: "Новая статья о технологиях",
-        description: "Обзор последних технологических достижений в 2024 году",
-        content: "Полный текст статьи о технологиях. Здесь содержится подробная информация о последних достижениях в области искусственного интеллекта, машинного обучения и других технологических инноваций.",
-        image: "/uploads/news/tech-article-1.jpg",
-        isPublished: true,
-        createdAt: "2024-01-01T00:00:00.000Z",
-        updatedAt: "2024-01-01T00:00:00.000Z"
-      },
-      {
-        id: 2,
-        title: "Обновления системы безопасности",
-        description: "Важные обновления в системе безопасности платформы",
-        content: "Мы рады сообщить о важных обновлениях в системе безопасности нашей платформы. Эти изменения направлены на повышение защиты данных пользователей и предотвращение потенциальных угроз.",
-        image: "/uploads/news/security-update-2.jpg",
-        isPublished: true,
-        createdAt: "2024-01-02T00:00:00.000Z",
-        updatedAt: "2024-01-02T00:00:00.000Z"
+    try {
+      const { data } = await API.get(`/news/${id}`);
+      return data;
+    } catch (error: any) {
+      if (error.response?.status === 404) {
+        throw new NewsApiError("News item not found", 404);
       }
-    ];
-    
-    const item = mockItems.find(item => item.id === id);
-    if (!item) {
-      throw new NewsApiError('News article not found', 404);
+      console.error(`Error fetching news item with id ${id}:`, error);
+      throw new NewsApiError("Failed to fetch news item", 500);
     }
-    
-    return item;
   },
 
-  async create(data: CreateNewsData): Promise<NewsItem> {
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    const newItem: NewsItem = {
-      id: Date.now(),
-      title: data.title,
-      description: data.description,
-      content: data.content,
-      image: data.image ? `/uploads/news/${Date.now()}-${Math.random().toString(36).substr(2, 9)}.jpg` : undefined,
-      isPublished: data.isPublished,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    };
-    
-    console.log('News created:', newItem);
-    
-    return newItem;
+  async create(newsData: CreateNewsData): Promise<NewsItem> {
+    try {
+      const { data } = await API.post("/news", { ...newsData, cover: 'https://images.unsplash.com/photo-1495020689067-958852a7765e' });
+      return data;
+    } catch (error: any) {
+      console.error("Error creating news:", error);
+      if (error.response?.status === 400) {
+        throw new NewsApiError("Invalid news data", 400);
+      }
+      throw new NewsApiError("Failed to create news item", 500);
+    }
   },
 
-  async update(id: number, data: UpdateNewsData): Promise<NewsItem> {
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    const updatedItem: NewsItem = {
-      id,
-      title: data.title || "Updated Title",
-      description: data.description || "Updated Description",
-      content: data.content || "Updated Content",
-      image: data.image 
-        ? `/uploads/news/${Date.now()}-${Math.random().toString(36).substr(2, 9)}.jpg`
-        : "/uploads/news/default-article.jpg",
-      isPublished: data.isPublished !== undefined ? data.isPublished : true,
-      createdAt: "2024-01-01T00:00:00.000Z",
-      updatedAt: new Date().toISOString(),
-    };
-    
-    console.log('News updated:', updatedItem);
-    
-    return updatedItem;
+  async update(id: number, newsData: UpdateNewsData): Promise<NewsItem> {
+    try {
+      const { data } = await API.patch(`/news/${id}`, { ...newsData, cover: 'https://images.unsplash.com/photo-1495020689067-958852a7765e' });
+
+      return data;
+    } catch (error: any) {
+      if (error.response?.status === 404) {
+        throw new NewsApiError("News item not found", 404);
+      }
+      console.error(`Error updating news item with id ${id}:`, error);
+      throw new NewsApiError("Failed to update news item", 500);
+    }
   },
 
   async delete(id: number): Promise<{ message: string }> {
-    await new Promise(resolve => setTimeout(resolve, 500));
-    return { message: "News article deleted successfully" };
+    try {
+      const { data } = await API.delete(`/news/${id}`);
+      return data;
+    } catch (error: any) {
+      if (error.response?.status === 404) {
+        throw new NewsApiError("News item not found", 404);
+      }
+      console.error(`Error deleting news item with id ${id}:`, error);
+      throw new NewsApiError("Failed to delete news item", 500);
+    }
   },
-}; 
+};

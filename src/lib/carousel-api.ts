@@ -138,7 +138,7 @@ interface CarouselItem {
 interface CreateCarouselData {
 	title: string;
 	link?: string;
-	image: File;
+  photo: File;
 }
 
 interface UpdateCarouselData {
@@ -189,8 +189,8 @@ export const carouselApi = {
 			formData.append("link", dataCarousel.link);
 		}
 
-		if (dataCarousel.image) {
-			formData.append("image", dataCarousel.image);
+		if (dataCarousel.photo) {
+			formData.append("photo", dataCarousel.photo);
 		}
 
 		try {

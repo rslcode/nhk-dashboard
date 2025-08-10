@@ -39,7 +39,7 @@ export function useAttractions() {
     setIsLoading(true);
     setError(null);
     try {
-      const data = await attractionsApi.getAll();
+      const data: any = await attractionsApi.getAll();
       setItems(data);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to fetch attractions');
@@ -48,12 +48,12 @@ export function useAttractions() {
     }
   }, []);
 
-  const createItem = React.useCallback(async (data: CreateAttractionData) => {
+  const createItem = React.useCallback(async (data: any) => {
     setIsLoading(true);
     setError(null);
     try {
       const newItem = await attractionsApi.create(data);
-      setItems(prev => [...prev, newItem]);
+      setItems((prev: any) => [...prev, newItem]);
       return newItem;
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to create attraction');
@@ -68,7 +68,7 @@ export function useAttractions() {
     setError(null);
     try {
       const updatedItem = await attractionsApi.update(id, data);
-      setItems(prev => prev.map(item => item.id === id ? updatedItem : item));
+      setItems((prev: any) => prev.map((item: any) => item.id === id ? updatedItem : item));
       return updatedItem;
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to update attraction');
@@ -120,4 +120,4 @@ export function useAttractions() {
     deleteItem,
     getItem,
   };
-} 
+}

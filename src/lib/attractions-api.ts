@@ -1,177 +1,103 @@
-const API_BASE_URL = 'http://localhost:3000/attractions';
+import { API } from "@/lib/api";
+
+
+
+
 
 interface AttractionItem {
-  id: number;
-  title: string;
-  description: string;
-  location: string;
-  category: string;
-  image?: string;
-  createdAt: string;
-  updatedAt: string;
+	id: number;
+	title: string;
+	description: string;
+	cover: string;
+	additionalInformation?: string;
+	location?: string;
+	category?: string;
+	createdAt: string;
+	updatedAt: string;
 }
 
 interface CreateAttractionData {
-  title: string;
-  description: string;
-  location: string;
-  category: string;
-  image?: File;
+	title: string;
+	description: string;
+	cover: File | string;
+	additionalInformation?: string;
 }
 
 interface UpdateAttractionData {
-  title?: string;
-  description?: string;
-  location?: string;
-  category?: string;
-  image?: File;
+	title?: string;
+	description?: string;
+	cover?: File | string;
+	additionalInformation?: string;
 }
 
 class AttractionsApiError extends Error {
-  constructor(message: string, public status?: number) {
-    super(message);
-    this.name = 'AttractionsApiError';
-  }
+	constructor(
+		message: string,
+		public status?: number
+	) {
+		super(message);
+		this.name = "AttractionsApiError";
+	}
 }
 
-// Mock implementation for development/demo purposes
-// This simulates the API without making real HTTP requests
 export const attractionsApi = {
-  async getAll(): Promise<AttractionItem[]> {
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 500));
-    
-    // Return mock data
-    return [
-      {
-        id: 1,
-        title: "Стена Плача",
-        description: "Священное место для иудеев, расположенное в Старом городе Иерусалима",
-        location: "Иерусалим",
-        category: "religious",
-        image: "/uploads/attractions/western-wall-1.jpg",
-        createdAt: "2024-01-01T00:00:00.000Z",
-        updatedAt: "2024-01-01T00:00:00.000Z"
-      },
-      {
-        id: 2,
-        title: "Храм Гроба Господня",
-        description: "Один из главных христианских храмов, построенный на месте распятия и воскресения Иисуса Христа",
-        location: "Иерусалим",
-        category: "religious",
-        image: "/uploads/attractions/church-holy-sepulchre-2.jpg",
-        createdAt: "2024-01-02T00:00:00.000Z",
-        updatedAt: "2024-01-02T00:00:00.000Z"
-      },
-      {
-        id: 3,
-        title: "Музей Израиля",
-        description: "Крупнейший культурный музей Израиля с богатой коллекцией археологических находок и искусства",
-        location: "Иерусалим",
-        category: "cultural",
-        image: "/uploads/attractions/israel-museum-3.jpg",
-        createdAt: "2024-01-03T00:00:00.000Z",
-        updatedAt: "2024-01-03T00:00:00.000Z"
-      },
-      {
-        id: 4,
-        title: "Мертвое море",
-        description: "Уникальное соленое озеро, известное своими лечебными свойствами и высокой концентрацией соли",
-        location: "Иудейская пустыня",
-        category: "natural",
-        image: "/uploads/attractions/dead-sea-4.jpg",
-        createdAt: "2024-01-04T00:00:00.000Z",
-        updatedAt: "2024-01-04T00:00:00.000Z"
-      },
-      {
-        id: 5,
-        title: "Башня Давида",
-        description: "Средневековая крепость, расположенная в Старом городе Иерусалима",
-        location: "Иерусалим",
-        category: "historical",
-        image: "/uploads/attractions/tower-david-5.jpg",
-        createdAt: "2024-01-05T00:00:00.000Z",
-        updatedAt: "2024-01-05T00:00:00.000Z"
-      }
-    ];
-  },
+	async getAll(): Promise<AttractionItem[]> {
+		try {
+			const { data } = await API.get("/attractions");
+			return data;
+		} catch (error) {
+			console.error("Error fetching attractions:", error);
+			throw new AttractionsApiError("Failed to fetch attractions", 500);
+		}
+	},
 
-  async getById(id: number): Promise<AttractionItem> {
-    await new Promise(resolve => setTimeout(resolve, 300));
-    
-    const mockItems = [
-      {
-        id: 1,
-        title: "Стена Плача",
-        description: "Священное место для иудеев, расположенное в Старом городе Иерусалима",
-        location: "Иерусалим",
-        category: "religious",
-        image: "/uploads/attractions/western-wall-1.jpg",
-        createdAt: "2024-01-01T00:00:00.000Z",
-        updatedAt: "2024-01-01T00:00:00.000Z"
-      },
-      {
-        id: 2,
-        title: "Храм Гроба Господня",
-        description: "Один из главных христианских храмов, построенный на месте распятия и воскресения Иисуса Христа",
-        location: "Иерусалим",
-        category: "religious",
-        image: "/uploads/attractions/church-holy-sepulchre-2.jpg",
-        createdAt: "2024-01-02T00:00:00.000Z",
-        updatedAt: "2024-01-02T00:00:00.000Z"
-      }
-    ];
-    
-    const item = mockItems.find(item => item.id === id);
-    if (!item) {
-      throw new AttractionsApiError('Attraction not found', 404);
-    }
-    
-    return item;
-  },
+	async getById(id: number): Promise<AttractionItem> {
+		try {
+			const { data } = await API.get(`/attractions/${id}`);
+			return data;
+		} catch (error: any) {
+			if (error.response?.status === 404) {
+				throw new AttractionsApiError("Attraction not found", 404);
+			}
+			console.error(`Error fetching attraction with id ${id}:`, error);
+			throw new AttractionsApiError("Failed to fetch attraction", 500);
+		}
+	},
 
-  async create(data: CreateAttractionData): Promise<AttractionItem> {
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    const newItem: AttractionItem = {
-      id: Date.now(),
-      title: data.title,
-      description: data.description,
-      location: data.location,
-      category: data.category,
-      image: data.image ? `/uploads/attractions/${Date.now()}-${Math.random().toString(36).substr(2, 9)}.jpg` : undefined,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    };
-    
-    console.log('Attraction created:', newItem);
-    
-    return newItem;
-  },
+	async create(data: CreateAttractionData): Promise<AttractionItem> {
+    console.log(data);
+		try {
+			const { data: responseData } = await API.post("/attractions", { ...data, cover: 'https://images.unsplash.com/photo-1495020689067-958852a7765e' });
+			return responseData;
+		} catch (error) {
+			console.error("Error creating attraction:", error);
+			throw new AttractionsApiError("Failed to create attraction", 500);
+		}
+	},
 
-  async update(id: number, data: UpdateAttractionData): Promise<AttractionItem> {
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    const updatedItem: AttractionItem = {
-      id,
-      title: data.title || "Updated Title",
-      description: data.description || "Updated Description",
-      location: data.location || "Updated Location",
-      category: data.category || "other",
-      image: data.image 
-        ? `/uploads/attractions/${Date.now()}-${Math.random().toString(36).substr(2, 9)}.jpg`
-        : "/uploads/attractions/default-attraction.jpg",
-      createdAt: "2024-01-01T00:00:00.000Z",
-      updatedAt: new Date().toISOString(),
-    };
-    
-    console.log('Attraction updated:', updatedItem);
-    
-    return updatedItem;
-  },
+	async update(id: number, data: UpdateAttractionData): Promise<AttractionItem> {
+		try {
+			const { data: responseData } = await API.patch(`/attractions/${id}`, { ...data, cover: 'https://images.unsplash.com/photo-1495020689067-958852a7765e' });
+			return responseData;
+		} catch (error: any) {
+			if (error.response?.status === 404) {
+				throw new AttractionsApiError("Attraction not found", 404);
+			}
+			console.error(`Error updating attraction with id ${id}:`, error);
+			throw new AttractionsApiError("Failed to update attraction", 500);
+		}
+	},
 
-  async delete(id: number): Promise<{ message: string }> {
-    await new Promise(resolve => setTimeout(resolve, 500));
-    return { message: "Attraction deleted successfully" };
-  },
-}; 
+	async delete(id: number): Promise<{ message: string }> {
+		try {
+			const { data } = await API.delete(`/attractions/${id}`);
+			return data;
+		} catch (error: any) {
+			if (error.response?.status === 404) {
+				throw new AttractionsApiError("Attraction not found", 404);
+			}
+			console.error(`Error deleting attraction with id ${id}:`, error);
+			throw new AttractionsApiError("Failed to delete attraction", 500);
+		}
+	},
+};

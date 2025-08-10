@@ -39,21 +39,21 @@ export function useNews() {
     setIsLoading(true);
     setError(null);
     try {
-      const data = await newsApi.getAll();
+      const data: any = await newsApi.getAll();
       setItems(data);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to fetch news articles');
+      setError(err instanceof Error ? err.message : 'Не удалось загрузить новостные статьи.');
     } finally {
       setIsLoading(false);
     }
   }, []);
 
-  const createItem = React.useCallback(async (data: CreateNewsData) => {
+  const createItem = React.useCallback(async (data: any) => {
     setIsLoading(true);
     setError(null);
     try {
       const newItem = await newsApi.create(data);
-      setItems(prev => [...prev, newItem]);
+      setItems((prev: any) => [...prev, newItem]);
       return newItem;
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to create news article');
@@ -68,7 +68,7 @@ export function useNews() {
     setError(null);
     try {
       const updatedItem = await newsApi.update(id, data);
-      setItems(prev => prev.map(item => item.id === id ? updatedItem : item));
+      setItems((prev: any) => prev.map((item: any) => item.id === id ? updatedItem : item));
       return updatedItem;
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to update news article');
@@ -99,7 +99,7 @@ export function useNews() {
       const item = await newsApi.getById(id);
       return item;
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to fetch news article');
+      setError(err instanceof Error ? err.message : 'Не удалось загрузить новостные статьи.');
       throw err;
     } finally {
       setIsLoading(false);
@@ -120,4 +120,4 @@ export function useNews() {
     deleteItem,
     getItem,
   };
-} 
+}

@@ -36,9 +36,8 @@ export function NewsForm({ open, onClose, item }: NewsFormProps): React.JSX.Elem
   const [formData, setFormData] = React.useState<any>({
     title: '',
     description: '',
-    content: '',
-    image: null as File | null,
-    isPublished: false,
+    additionalInformation: '',
+    cover: null as File | null,
   });
   const [previewUrl, setPreviewUrl] = React.useState<string>('');
   const [errors, setErrors] = React.useState<Record<string, string>>({});
@@ -62,18 +61,16 @@ export function NewsForm({ open, onClose, item }: NewsFormProps): React.JSX.Elem
       setFormData({
         title: item.title || '',
         description: item.description || '',
-        content: item.content || '',
-        image: null,
-        isPublished: item.isPublished || false,
+        additionalInformation: item.additionalInformation || '',
+        cover: null,
       });
-      setPreviewUrl(item.image ? `http://localhost:3000${item.image}` : getPlaceholderImage(item.id));
+      setPreviewUrl(item.cover ? `http://localhost:3000${item.cover}` : getPlaceholderImage(item.id));
     } else {
       setFormData({
         title: '',
         description: '',
-        content: '',
-        image: null,
-        isPublished: false,
+        additionalInformation: '',
+        cover: null,
       });
       setPreviewUrl('');
     }
@@ -90,11 +87,11 @@ export function NewsForm({ open, onClose, item }: NewsFormProps): React.JSX.Elem
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      setFormData((prev: any) => ({ ...prev, image: file }));
+      setFormData((prev: any) => ({ ...prev, cover: file }));
       const url = URL.createObjectURL(file);
       setPreviewUrl(url);
-      if (errors.image) {
-        setErrors((prev: any) => ({ ...prev, image: '' }));
+      if (errors.cover) {
+        setErrors((prev: any) => ({ ...prev, cover: '' }));
       }
     }
   };
@@ -110,8 +107,8 @@ export function NewsForm({ open, onClose, item }: NewsFormProps): React.JSX.Elem
       newErrors.description = 'Описание обязательно';
     }
 
-    if (!formData.content.trim()) {
-      newErrors.content = 'Содержание обязательно';
+    if (!formData.additionalInformation.trim()) {
+      newErrors.additionalInformation = 'Дополнительная информация обязательна';
     }
 
     if (formData.title.length > 255) {
@@ -128,7 +125,7 @@ export function NewsForm({ open, onClose, item }: NewsFormProps): React.JSX.Elem
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    
+
     if (!validateForm()) {
       return;
     }
@@ -180,11 +177,11 @@ export function NewsForm({ open, onClose, item }: NewsFormProps): React.JSX.Elem
 
             <TextField
               fullWidth
-              label="Содержание"
-              value={formData.content}
-              onChange={(e) => handleInputChange('content', e.target.value)}
-              error={!!errors.content}
-              helperText={errors.content || 'Полное содержание статьи'}
+              label="Дополнительная информация"
+              value={formData.additionalInformation}
+              onChange={(e) => handleInputChange('additionalInformation', e.target.value)}
+              error={!!errors.additionalInformation}
+              helperText={errors.additionalInformation || 'Полное содержание статьи'}
               required
               multiline
               rows={8}
@@ -192,9 +189,9 @@ export function NewsForm({ open, onClose, item }: NewsFormProps): React.JSX.Elem
 
             <Box>
               <Typography variant="subtitle2" gutterBottom>
-                Изображение статьи (необязательно)
+                Обложка статьи (необязательно)
               </Typography>
-              
+
               {previewUrl && (
                 <Card sx={{ mb: 2, maxWidth: 300 }}>
                   <CardMedia
@@ -207,7 +204,7 @@ export function NewsForm({ open, onClose, item }: NewsFormProps): React.JSX.Elem
                     <IconButton
                       size="small"
                       onClick={() => {
-                        setFormData((prev: any) => ({ ...prev, image: null }));
+                        setFormData((prev: any) => ({ ...prev, cover: null }));
                         setPreviewUrl('');
                       }}
                     >
@@ -223,7 +220,7 @@ export function NewsForm({ open, onClose, item }: NewsFormProps): React.JSX.Elem
                 fullWidth
                 sx={{ height: 56 }}
               >
-                {previewUrl ? 'Изменить изображение' : 'Загрузить изображение'}
+                {previewUrl ? 'Изменить обложку' : 'Загрузить обложку'}
                 <input
                   type="file"
                   hidden
@@ -231,23 +228,12 @@ export function NewsForm({ open, onClose, item }: NewsFormProps): React.JSX.Elem
                   onChange={handleImageChange}
                 />
               </Button>
-              
-              {errors.image && (
-                <FormHelperText error>{errors.image}</FormHelperText>
+
+              {errors.cover && (
+                <FormHelperText error>{errors.cover}</FormHelperText>
               )}
             </Box>
 
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={formData.isPublished}
-                  onChange={(e) => handleInputChange('isPublished', e.target.checked)}
-                  color="primary"
-                />
-              }
-              label="Опубликовано"
-            />
-            
             <Typography variant="caption" color="text.secondary">
               Опубликованные статьи будут видны пользователям. Черновики видны только администраторам.
             </Typography>
@@ -268,4 +254,4 @@ export function NewsForm({ open, onClose, item }: NewsFormProps): React.JSX.Elem
       </form>
     </Dialog>
   );
-} 
+}

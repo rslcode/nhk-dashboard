@@ -35,9 +35,9 @@ export default function AttractionsPage(): React.JSX.Element {
     <Stack spacing={3}>
       <Stack direction="row" spacing={3} sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
         <div>
-          <Typography variant="h4">Attractions Management</Typography>
+          <Typography variant="h4">Управление достопримечательностями</Typography>
           <Typography color="text.secondary" variant="body1">
-            Manage attractions and points of interest
+            Управление достопримечательностями и объектами интереса
           </Typography>
         </div>
         <Button
@@ -45,12 +45,12 @@ export default function AttractionsPage(): React.JSX.Element {
           onClick={handleCreate}
           variant="contained"
         >
-          Add Attraction
+          Добавить
         </Button>
       </Stack>
 
       <Card>
-        <CardHeader title="Attractions" />
+        <CardHeader title="Достопримечательности" />
         <CardContent>
           <AttractionsList onEdit={handleEdit} />
         </CardContent>
