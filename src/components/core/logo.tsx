@@ -29,8 +29,8 @@ export function Logo({ color = 'dark', emblem, height = HEIGHT, width = WIDTH }:
   }
 
   return (
-    <Typography 
-      variant="h4" 
+    <Typography
+      variant="h4"
       component="h1"
       sx={{
         color: 'white',
@@ -67,8 +67,8 @@ export function DynamicLogo({
 
   return (
     <NoSsr fallback={<Box sx={{ height: `${height}px`, width: `${width}px` }} />}>
-      <Typography 
-        variant="h4" 
+      <Typography
+        variant="h4"
         component="h1"
         sx={{
           color: 'white',

@@ -16,6 +16,8 @@ import { paths } from '@/paths';
 import { authClient } from '@/lib/auth/client';
 import { logger } from '@/lib/default-logger';
 import { useUser } from '@/hooks/use-user';
+import { usersApi } from "@/lib/users-api";
+import { toast } from "react-hot-toast";
 
 export interface UserPopoverProps {
   anchorEl: Element | null;
@@ -25,8 +27,22 @@ export interface UserPopoverProps {
 
 export function UserPopover({ anchorEl, onClose, open }: UserPopoverProps): React.JSX.Element {
   const { checkSession } = useUser();
-
   const router = useRouter();
+
+  const [user, setUser] = React.useState<any>(null);
+  console.log(user);
+  React.useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const userData = await usersApi.findMe();
+        setUser(userData);
+      } catch (error) {
+        console.error('Failed to fetch user:', error);
+        toast.error('Failed to load user data.');
+      }
+    };
+    fetchUser();
+  }, []);
 
   const handleSignOut = React.useCallback(async (): Promise<void> => {
     try {
@@ -57,9 +73,9 @@ export function UserPopover({ anchorEl, onClose, open }: UserPopoverProps): Reac
       slotProps={{ paper: { sx: { width: '240px' } } }}
     >
       <Box sx={{ p: '16px 20px ' }}>
-        <Typography variant="subtitle1">Sofia Rivers</Typography>
+        <Typography variant="subtitle1">{user.firstName + ' ' + user.lastName}</Typography>
         <Typography color="text.secondary" variant="body2">
-          sofia.rivers@devias.io
+          {user.phone}
         </Typography>
       </Box>
       <Divider />

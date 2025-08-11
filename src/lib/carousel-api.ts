@@ -225,7 +225,7 @@ export const carouselApi = {
 		}
 
 		try {
-			const { data } = await API.patch(`/carousel/${id}`, formData, {
+			const { data } = await API.put(`/carousel/${id}`, formData, {
 				headers: {
 					"Content-Type": "multipart/form-data",
 				},
