@@ -1,9 +1,5 @@
 import { API } from "@/lib/api";
 
-
-
-
-
 interface NewsItem {
   id: number;
   title: string;
@@ -18,14 +14,14 @@ interface CreateNewsData {
   title: string;
   description: string;
   additionalInformation?: string;
-  cover: string; // URL string, not File
+  cover: File;
 }
 
 interface UpdateNewsData {
   title?: string;
   description?: string;
   additionalInformation?: string;
-  cover?: string; // URL string, not File
+  cover?: File;
 }
 
 class NewsApiError extends Error {
@@ -42,7 +38,6 @@ export const newsApi = {
   async getAll(): Promise<NewsItem[]> {
     try {
       const { data } = await API.get("/news");
-      console.log(data,'news');
       return data;
     } catch (error) {
       console.error("Error fetching news data:", error);
@@ -64,8 +59,24 @@ export const newsApi = {
   },
 
   async create(newsData: CreateNewsData): Promise<NewsItem> {
+    const formData = new FormData();
+    formData.append("title", newsData.title);
+    formData.append("description", newsData.description);
+
+    if (newsData.additionalInformation) {
+      formData.append("additionalInformation", newsData.additionalInformation);
+    }
+
+    if (newsData.cover) {
+      formData.append("cover", newsData.cover);
+    }
+
     try {
-      const { data } = await API.post("/news", { ...newsData, cover: 'https://images.unsplash.com/photo-1495020689067-958852a7765e' });
+      const { data } = await API.post("/news", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       return data;
     } catch (error: any) {
       console.error("Error creating news:", error);
@@ -77,9 +88,30 @@ export const newsApi = {
   },
 
   async update(id: number, newsData: UpdateNewsData): Promise<NewsItem> {
-    try {
-      const { data } = await API.patch(`/news/${id}`, { ...newsData, cover: 'https://images.unsplash.com/photo-1495020689067-958852a7765e' });
+    const formData = new FormData();
 
+    if (newsData.title) {
+      formData.append("title", newsData.title);
+    }
+
+    if (newsData.description) {
+      formData.append("description", newsData.description);
+    }
+
+    if (newsData.additionalInformation) {
+      formData.append("additionalInformation", newsData.additionalInformation);
+    }
+
+    if (newsData.cover) {
+      formData.append("cover", newsData.cover);
+    }
+
+    try {
+      const { data } = await API.patch(`/news/${id}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       return data;
     } catch (error: any) {
       if (error.response?.status === 404) {
@@ -101,5 +133,9 @@ export const newsApi = {
       console.error(`Error deleting news item with id ${id}:`, error);
       throw new NewsApiError("Failed to delete news item", 500);
     }
+  },
+
+  getCoverUrl(filename: string): string {
+    return `${API.defaults.baseURL}/news/cover/${filename}`;
   },
 };

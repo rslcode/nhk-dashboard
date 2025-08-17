@@ -1,5 +1,3 @@
-const API_BASE_URL = 'http://localhost:3000/services';
-
 interface ServiceItem {
   id: number;
   cityId: number;
@@ -46,7 +44,7 @@ export const servicesApi = {
   async getAll(): Promise<ServiceItem[]> {
     // Simulate API delay
     await new Promise(resolve => setTimeout(resolve, 500));
-    
+
     // Return mock data
     return [
       {
@@ -207,7 +205,7 @@ export const servicesApi = {
 
   async getById(id: number): Promise<ServiceItem> {
     await new Promise(resolve => setTimeout(resolve, 300));
-    
+
     const mockItems = [
       {
         id: 1,
@@ -231,18 +229,18 @@ export const servicesApi = {
         updatedAt: "2024-01-01T00:00:00.000Z"
       }
     ];
-    
+
     const item = mockItems.find(item => item.id === id);
     if (!item) {
       throw new ServicesApiError('Service not found', 404);
     }
-    
+
     return item;
   },
 
   async getByCity(cityId: number): Promise<any> {
     await new Promise(resolve => setTimeout(resolve, 300));
-    
+
     const allServices = [
       {
         id: 1,
@@ -275,13 +273,13 @@ export const servicesApi = {
         ]
       }
     ];
-    
+
     return allServices.filter(service => service.cityId === cityId);
   },
 
   async getByType(type: string): Promise<any> {
     await new Promise(resolve => setTimeout(resolve, 300));
-    
+
     const allServices = [
       {
         id: 1,
@@ -322,13 +320,13 @@ export const servicesApi = {
         ]
       }
     ];
-    
+
     return allServices.filter(service => service.type === type);
   },
 
   async create(data: CreateServiceData): Promise<ServiceItem> {
     await new Promise(resolve => setTimeout(resolve, 1000));
-    
+
     const newItem: ServiceItem = {
       id: Date.now(),
       cityId: data.cityId,
@@ -343,13 +341,13 @@ export const servicesApi = {
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };
-    
+
     return newItem;
   },
 
   async update(id: number, data: UpdateServiceData): Promise<ServiceItem> {
     await new Promise(resolve => setTimeout(resolve, 1000));
-    
+
     const updatedItem: ServiceItem = {
       id,
       cityId: data.cityId || 1,
@@ -364,7 +362,7 @@ export const servicesApi = {
       createdAt: "2024-01-01T00:00:00.000Z",
       updatedAt: new Date().toISOString(),
     };
-    
+
     return updatedItem;
   },
 
@@ -372,4 +370,4 @@ export const servicesApi = {
     await new Promise(resolve => setTimeout(resolve, 500));
     return { message: "Service deleted successfully" };
   },
-}; 
+};

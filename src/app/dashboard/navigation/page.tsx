@@ -74,7 +74,7 @@ export default function NavigationPage(): React.JSX.Element {
 
       {/* Cities Grid */}
       <Grid container spacing={3}>
-        {cities.map((city) => {
+        {cities.map((city: any) => {
           const cityServices = services.filter(s => s.cityId === city.id);
           return (
             <Grid
@@ -88,7 +88,7 @@ export default function NavigationPage(): React.JSX.Element {
                     <BuildingsIcon size={24} />
                     <Box sx={{ flexGrow: 1 }}>
                       <Typography variant="h6" sx={{ flexGrow: 1 }}>{city.name}</Typography>
-                      <Typography variant="body2" color="text.secondary">{cityServices.length} услуги</Typography>
+                      <Typography variant="body2" color="text.secondary">{city.services.length} услуги</Typography>
                     </Box>
                   </Stack>
                   <Box sx={{ mt: 'auto' }}>

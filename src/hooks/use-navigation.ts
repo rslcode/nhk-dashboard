@@ -1,7 +1,14 @@
 'use client';
 
 import * as React from 'react';
+
+
+
 import { navigationApi } from '@/lib/navigation-api';
+
+
+
+
 
 interface CityItem {
   id: number;
@@ -111,18 +118,48 @@ export function useNavigation() {
     setIsLoading(true);
     setError(null);
     try {
-      const [citiesData, servicesData, objectsData, addressesData] = await Promise.all([
+      const [citiesData, addressesData] = await Promise.all([
         navigationApi.getCities(),
-        navigationApi.getServices(),
-        navigationApi.getObjects(),
         navigationApi.getAddresses(),
       ]);
       setCities(citiesData);
-      setServices(servicesData);
-      setObjects(objectsData);
       setAddresses(addressesData);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to fetch navigation data');
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  const getServicesByCity = React.useCallback(async (cityId: number | string) => {
+		setIsLoading(true);
+		try {
+			const servicesData = await navigationApi.getServicesByCity(cityId);
+			setServices((prev) => {
+				const otherServices = prev.filter((s) => s.cityId !== parseInt(cityId.toString()));
+				return [...otherServices, ...servicesData];
+			});
+			return servicesData;
+		} catch (err) {
+			setError(err instanceof Error ? err.message : "Failed to fetch services");
+			throw err;
+		} finally {
+			setIsLoading(false);
+		}
+	}, []);
+
+  const getObjectByServices = React.useCallback(async (serviceId: number | string) => {
+    setIsLoading(true);
+    try {
+      const servicesData = await navigationApi.getObjectsByService(serviceId);
+      setObjects((prev) => {
+        const otherObject = prev.filter((s) => s.serviceId !== parseInt(serviceId.toString()));
+        return [...otherObject, ...otherObject];
+      });
+      return servicesData;
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to fetch services");
+      throw err;
     } finally {
       setIsLoading(false);
     }
@@ -339,12 +376,14 @@ export function useNavigation() {
     isLoading,
     error,
     fetchAll,
+    getServicesByCity,
     createCity,
     updateCity,
     deleteCity,
     createService,
     updateService,
     deleteService,
+    getObjectByServices,
     createObject,
     updateObject,
     deleteObject,
@@ -352,4 +391,4 @@ export function useNavigation() {
     updateAddress,
     deleteAddress,
   };
-} 
+}

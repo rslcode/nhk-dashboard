@@ -128,6 +128,7 @@ export function CarouselForm({ open, onClose, item }: CarouselFormProps): React.
       if (item) {
         await updateItem(item.id, dataToSend);
       } else {
+        console.log('dataToSend:', dataToSend);
         await createItem(dataToSend);
       }
       onClose();

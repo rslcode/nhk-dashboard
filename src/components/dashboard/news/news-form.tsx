@@ -64,7 +64,7 @@ export function NewsForm({ open, onClose, item }: NewsFormProps): React.JSX.Elem
         additionalInformation: item.additionalInformation || '',
         cover: null,
       });
-      setPreviewUrl(item.cover ? `http://localhost:3000${item.cover}` : getPlaceholderImage(item.id));
+      // setPreviewUrl(item.cover ? `http://localhost:3000${item.cover}` : getPlaceholderImage(item.id));
     } else {
       setFormData({
         title: '',

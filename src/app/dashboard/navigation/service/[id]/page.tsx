@@ -37,7 +37,7 @@ interface ServicePageProps {
 
 export default function ServicePage({ params }: ServicePageProps): React.JSX.Element {
   const resolvedParams = React.use(params);
-  const { cities, services, objects, addresses, deleteObject, deleteAddress } = useNavigation();
+  const { cities, services, objects, addresses, deleteObject, deleteAddress, getObjectByServices } = useNavigation();
   const [isObjectFormOpen, setIsObjectFormOpen] = React.useState(false);
   const [editingObject, setEditingObject] = React.useState<any>(null);
   const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false);
@@ -47,10 +47,19 @@ export default function ServicePage({ params }: ServicePageProps): React.JSX.Ele
   const [editingAddress, setEditingAddress] = React.useState<any>(null);
   const [addressDeleteDialogOpen, setAddressDeleteDialogOpen] = React.useState(false);
   const [addressToDelete, setAddressToDelete] = React.useState<any>(null);
+  const [serviceObject, setServiceObjects] = React.useState<any[]>([]);
 
-  const selectedService = services.find(service => service.id === parseInt(resolvedParams.id));
+  const selectedService = serviceObject.find(service => service.id === parseInt(resolvedParams.id));
   const selectedCity = cities.find(city => city.id === selectedService?.cityId);
   const serviceObjects = objects.filter(obj => obj.serviceId === parseInt(resolvedParams.id));
+
+  React.useEffect(() => {
+    if (resolvedParams.id) {
+      getObjectByServices(resolvedParams.id)
+        .then((data: any) => setServiceObjects(data))
+        .catch(console.error);
+    }
+  }, [resolvedParams.id, getObjectByServices]);
 
   const handleCreateObject = () => {
     setEditingObject(null);

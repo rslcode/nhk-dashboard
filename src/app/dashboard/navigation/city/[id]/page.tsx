@@ -9,7 +9,7 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
+import Grid from "@mui/material/Grid";
 import IconButton from '@mui/material/IconButton';
 import Chip from '@mui/material/Chip';
 import Dialog from '@mui/material/Dialog';
@@ -29,14 +29,28 @@ interface CityPageProps {
 
 export default function CityPage({ params }: CityPageProps): React.JSX.Element {
   const resolvedParams = React.use(params);
-  const { cities, services, objects, deleteService } = useNavigation();
+  const {
+    cities,
+    objects,
+    deleteService,
+    getServicesByCity,
+    isLoading
+  } = useNavigation();
   const [isServiceFormOpen, setIsServiceFormOpen] = React.useState(false);
   const [editingService, setEditingService] = React.useState<any>(null);
   const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false);
   const [serviceToDelete, setServiceToDelete] = React.useState<any>(null);
+  const [cityServices, setCityServices] = React.useState<any[]>([]);
 
   const selectedCity = cities.find(city => city.id === parseInt(resolvedParams.id));
-  const cityServices = services.filter(service => service.cityId === parseInt(resolvedParams.id));
+
+  React.useEffect(() => {
+    if (resolvedParams.id) {
+      getServicesByCity(resolvedParams.id)
+        .then(data => setCityServices(data))
+        .catch(console.error);
+    }
+  }, [resolvedParams.id, getServicesByCity]);
 
   const handleCreateService = () => {
     setEditingService(null);
@@ -107,9 +121,16 @@ export default function CityPage({ params }: CityPageProps): React.JSX.Element {
     );
   }
 
+  if (isLoading) {
+    return (
+      <Container maxWidth="xl">
+        <Typography variant="h4">Загрузка...</Typography>
+      </Container>
+    );
+  }
+
   return (
     <Container maxWidth="xl">
-      {/* Header with Back button, City Title, and Add Service button */}
       <Stack direction="row" spacing={2} alignItems="center" sx={{ mb: 4 }}>
         <Link href="/dashboard/navigation" passHref>
           <IconButton><ArrowLeftIcon /></IconButton>
@@ -121,10 +142,8 @@ export default function CityPage({ params }: CityPageProps): React.JSX.Element {
         <Button variant="contained" startIcon={<PlusIcon />} onClick={handleCreateService}>Добавить услугу</Button>
       </Stack>
 
-      {/* Services Grid */}
       <Grid container spacing={3}>
         {cityServices.map((service) => {
-          const serviceObjects = objects.filter(obj => obj.serviceId === service.id);
           return (
             <Grid size={{ xs: 12, sm: 6, md: 4 }} key={service.id}>
               <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
@@ -160,19 +179,24 @@ export default function CityPage({ params }: CityPageProps): React.JSX.Element {
         })}
       </Grid>
 
-      {/* Service Form */}
-      {isServiceFormOpen && (<ServiceFormWithMap open={isServiceFormOpen} onClose={handleCloseServiceForm} item={editingService} city={selectedCity} />)}
+      {isServiceFormOpen && (
+        <ServiceFormWithMap
+          open={isServiceFormOpen}
+          onClose={handleCloseServiceForm}
+          item={editingService}
+          city={selectedCity}
+        />
+      )}
 
-      {/* Delete Confirmation Dialog */}
       <Dialog open={deleteDialogOpen} onClose={handleCancelDelete}>
         <DialogTitle>Удалить службу</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Вы уверены, что хотите удалить? "{serviceToDelete?.title || serviceToDelete?.type + ' Услуги'}"? Это действие не может быть отменено и также приведет к удалению всех связанных объектов и адресов.
+            Вы уверены, что хотите удалить "{serviceToDelete?.title || serviceToDelete?.type + ' Услуги'}"? Это действие не может быть отменено.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCancelDelete}>Cancel</Button>
+          <Button onClick={handleCancelDelete}>Отмена</Button>
           <Button onClick={handleConfirmDelete} color="error" variant="contained">Удалить</Button>
         </DialogActions>
       </Dialog>
