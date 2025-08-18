@@ -12,13 +12,8 @@ import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import IconButton from '@mui/material/IconButton';
-import { MapPinIcon } from '@phosphor-icons/react/dist/ssr';
 
 import { useNavigation } from '@/hooks/use-navigation';
-
 
 interface ObjectFormWithMapProps {
   open: boolean;
@@ -34,9 +29,9 @@ export function ObjectFormWithMap({ open, onClose, item, service, city }: Object
 
   const [formData, setFormData] = React.useState({
     title: '',
+    description: '',
     latitude: '',
     longitude: '',
-    mapUrl: '',
   });
   const [errors, setErrors] = React.useState<Record<string, string>>({});
 
@@ -44,16 +39,16 @@ export function ObjectFormWithMap({ open, onClose, item, service, city }: Object
     if (item) {
       setFormData({
         title: item.title || '',
+        description: item.description || '',
         latitude: item.latitude?.toString() || '',
         longitude: item.longitude?.toString() || '',
-        mapUrl: item?.mapUrl || '',
       });
     } else {
       setFormData({
         title: '',
+        description: '',
         latitude: '',
         longitude: '',
-        mapUrl: '',
       });
     }
     setErrors({});
@@ -105,8 +100,9 @@ export function ObjectFormWithMap({ open, onClose, item, service, city }: Object
     setIsSubmitting(true);
     try {
       const submitData = {
-        ...formData,
         serviceId: service.id,
+        title: formData.title,
+        description: formData.description,
         latitude: formData.latitude ? parseFloat(formData.latitude) : undefined,
         longitude: formData.longitude ? parseFloat(formData.longitude) : undefined,
       };
@@ -147,12 +143,36 @@ export function ObjectFormWithMap({ open, onClose, item, service, city }: Object
 
             <TextField
               fullWidth
-              label="Ссылка на Google Maps"
-              value={formData.mapUrl || ''}
-              onChange={(e) => handleInputChange('mapUrl', e.target.value)}
-              placeholder="https://www.google.com/maps?q=41.7151,44.8271"
-              helperText="Скопируйте ссылку из адресной строки Google Maps и вставьте её здесь"
+              label="Описание"
+              value={formData.description}
+              onChange={(e) => handleInputChange('description', e.target.value)}
+              multiline
+              rows={4}
+              helperText="Дополнительная информация об объекте"
             />
+
+            <Grid container spacing={2}>
+              <Grid size={6}>
+                <TextField
+                  fullWidth
+                  label="Широта"
+                  value={formData.latitude}
+                  onChange={(e) => handleInputChange('latitude', e.target.value)}
+                  error={!!errors.latitude}
+                  helperText={errors.latitude || 'Например: 31.7054'}
+                />
+              </Grid>
+              <Grid size={6}>
+                <TextField
+                  fullWidth
+                  label="Долгота"
+                  value={formData.longitude}
+                  onChange={(e) => handleInputChange('longitude', e.target.value)}
+                  error={!!errors.longitude}
+                  helperText={errors.longitude || 'Например: 35.2007'}
+                />
+              </Grid>
+            </Grid>
 
             <Box>
               <Typography variant="subtitle2" color="text.secondary" gutterBottom>

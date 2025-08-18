@@ -42,20 +42,6 @@ export function NewsForm({ open, onClose, item }: NewsFormProps): React.JSX.Elem
   const [previewUrl, setPreviewUrl] = React.useState<string>('');
   const [errors, setErrors] = React.useState<Record<string, string>>({});
 
-  // Function to get placeholder image for existing items
-  const getPlaceholderImage = (id: number) => {
-    const colors = ['#f44336', '#e91e63', '#9c27b0', '#673ab7', '#3f51b5', '#2196f3', '#03a9f4', '#00bcd4', '#009688', '#4caf50'];
-    const color = colors[id % colors.length];
-    // Create a simple SVG placeholder
-    const svg = `
-      <svg width="300" height="200" xmlns="http://www.w3.org/2000/svg">
-        <rect width="300" height="200" fill="${color}"/>
-        <text x="150" y="110" font-family="Arial" font-size="16" fill="white" text-anchor="middle">News Image ${id}</text>
-      </svg>
-    `;
-    return `data:image/svg+xml;base64,${btoa(svg)}`;
-  };
-
   React.useEffect(() => {
     if (item) {
       setFormData({
@@ -64,7 +50,6 @@ export function NewsForm({ open, onClose, item }: NewsFormProps): React.JSX.Elem
         additionalInformation: item.additionalInformation || '',
         cover: null,
       });
-      // setPreviewUrl(item.cover ? `http://localhost:3000${item.cover}` : getPlaceholderImage(item.id));
     } else {
       setFormData({
         title: '',

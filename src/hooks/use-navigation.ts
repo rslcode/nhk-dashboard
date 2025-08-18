@@ -148,6 +148,22 @@ export function useNavigation() {
 		}
 	}, []);
 
+  const getServicesById = React.useCallback(async (id: number | string) => {
+    setIsLoading(true);
+    try {
+      const servicesData = await navigationApi.getServicesById(id);
+      setServices((prev) => {
+        return servicesData;
+      });
+      return servicesData;
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to fetch services");
+      throw err;
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
   const getObjectByServices = React.useCallback(async (serviceId: number | string) => {
     setIsLoading(true);
     try {
@@ -390,5 +406,6 @@ export function useNavigation() {
     createAddress,
     updateAddress,
     deleteAddress,
+    getServicesById
   };
 }

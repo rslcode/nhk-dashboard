@@ -71,6 +71,8 @@ export const newsApi = {
       formData.append("cover", newsData.cover);
     }
 
+    console.log(newsData);
+
     try {
       const { data } = await API.post("/news", formData, {
         headers: {

@@ -157,7 +157,16 @@ export const navigationApi = {
 			const { data } = await API.get(`/services/city/${cityId}`);
 			return data;
 		} catch (error: any) {
-			console.error("Error creating service:", error);
+			console.error("Error service:", error);
+		}
+	},
+
+  async getServicesById(id: number | string) {
+		try {
+			const { data } = await API.get(`/services/${id}`);
+			return data;
+		} catch (error: any) {
+			console.error("Error service:", error);
 		}
 	},
 
@@ -198,45 +207,31 @@ export const navigationApi = {
 		}
 	},
 
-	async createObject(data: CreateObjectData): Promise<ObjectItem> {
-		await new Promise((resolve) => setTimeout(resolve, 1000));
-
-		const newObject: ObjectItem = {
-			id: Date.now(),
-			serviceId: data.serviceId,
-			title: data.title,
-			latitude: data.latitude,
-			longitude: data.longitude,
-			createdAt: new Date().toISOString(),
-			updatedAt: new Date().toISOString(),
-		};
-
-		console.log("Object created:", newObject);
-
-		return newObject;
+	async createObject(payload: CreateObjectData) {
+    try {
+      const { data } = await API.post("/objects", payload);
+      return data;
+    } catch (error: any) {
+      console.error("Error creating object:", error);
+    }
 	},
 
-	async updateObject(id: number, data: UpdateObjectData): Promise<ObjectItem> {
-		await new Promise((resolve) => setTimeout(resolve, 1000));
-
-		const updatedObject: ObjectItem = {
-			id,
-			serviceId: data.serviceId || 1,
-			title: data.title || "Updated Object",
-			latitude: data.latitude,
-			longitude: data.longitude,
-			createdAt: "2024-01-01T00:00:00.000Z",
-			updatedAt: new Date().toISOString(),
-		};
-
-		console.log("Object updated:", updatedObject);
-
-		return updatedObject;
+	async updateObject(id: number, payload: UpdateObjectData) {
+    try {
+      const { data } = await API.patch(`/objects/${id}`, payload);
+      return data;
+    } catch (error: any) {
+      console.error("Error updating object:", error);
+    }
 	},
 
-	async deleteObject(id: number): Promise<{ message: string }> {
-		await new Promise((resolve) => setTimeout(resolve, 500));
-		return { message: "Object deleted successfully" };
+	async deleteObject(id: number) {
+    try {
+      const { data } = await API.delete(`/objects/${id}`);
+      return data;
+    } catch (error: any) {
+      console.error("Error deleteing service:", error);
+    }
 	},
 
 	// Addresses
