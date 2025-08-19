@@ -42,7 +42,7 @@ export function useCarousel() {
     }
   }, []);
 
-  const createItem = React.useCallback(async (data: CreateCarouselData) => {
+  const createItem = React.useCallback(async (data: any) => {
     setIsLoading(true);
     setError(null);
     try {
@@ -114,4 +114,4 @@ export function useCarousel() {
     deleteItem,
     getItem,
   };
-} 
+}
