@@ -44,7 +44,7 @@ export function ServiceFormWithMap({ open, onClose, item }: ServiceFormWithMapPr
     { value: "hotel", label: "Hotel - Отели и гостиницы" },
     { value: "restaurant", label: "Restaurant - Рестораны и кафе" },
     { value: "attraction", label: "Attraction - Достопримечательности" },
-    { value: "alharm", label: "Аль Харм" },
+    { value: "alharm", label: "Аль Харам" },
     { value: "transport", label: "Transport - Транспортные услуги" },
     { value: "entertainment", label: "Entertainment - Развлечения" },
     { value: "shopping", label: "Shopping - Магазины" },
