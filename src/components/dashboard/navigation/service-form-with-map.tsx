@@ -33,7 +33,6 @@ export function ServiceFormWithMap({ open, onClose, item }: ServiceFormWithMapPr
 
   const [formData, setFormData] = React.useState({
     title: "",
-    description: "",
     type: "",
     cityId: parseInt(cityId),
   });
@@ -45,6 +44,7 @@ export function ServiceFormWithMap({ open, onClose, item }: ServiceFormWithMapPr
     { value: "restaurant", label: "Restaurant - Рестораны и кафе" },
     { value: "attraction", label: "Attraction - Достопримечательности" },
     { value: "alharm", label: "Аль Харам" },
+    { value: "PilgrimCamp", label: "Лагерь паломников" },
     { value: "transport", label: "Transport - Транспортные услуги" },
     { value: "entertainment", label: "Entertainment - Развлечения" },
     { value: "shopping", label: "Shopping - Магазины" },
@@ -56,14 +56,12 @@ export function ServiceFormWithMap({ open, onClose, item }: ServiceFormWithMapPr
     if (item) {
       setFormData({
         title: item.title || "",
-        description: item.description || "",
         type: item.type || "",
         cityId: item.cityId || parseInt(cityId),
       });
     } else {
       setFormData({
         title: "",
-        description: "",
         type: "",
         cityId: parseInt(cityId),
       });
@@ -104,7 +102,6 @@ export function ServiceFormWithMap({ open, onClose, item }: ServiceFormWithMapPr
     try {
       const submitData = {
         title: formData.title,
-        description: formData.description,
         type: formData.type,
         cityId: formData.cityId,
       };
@@ -124,27 +121,18 @@ export function ServiceFormWithMap({ open, onClose, item }: ServiceFormWithMapPr
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
-      <DialogTitle>{item ? "Изменить услугу" : "Создать новую услугу"}</DialogTitle>
+      <DialogTitle>{item ? "Изменить место" : "Создать новое место"}</DialogTitle>
       <form onSubmit={handleSubmit}>
         <DialogContent>
           <Stack spacing={3}>
             <TextField
               fullWidth
-              label="Название сервиса"
+              label="Название Места"
               value={formData.title}
               onChange={(e) => handleInputChange("title", e.target.value)}
               error={!!errors.title}
               helperText={errors.title}
               required
-            />
-
-            <TextField
-              fullWidth
-              label="Описание"
-              multiline
-              rows={4}
-              value={formData.description}
-              onChange={(e) => handleInputChange("description", e.target.value)}
             />
 
             <FormControl fullWidth error={!!errors.type}>
@@ -163,16 +151,6 @@ export function ServiceFormWithMap({ open, onClose, item }: ServiceFormWithMapPr
               </Select>
               {errors.type && <FormHelperText>{errors.type}</FormHelperText>}
             </FormControl>
-
-            <Box>
-              <Typography variant="subtitle2" color="text.secondary" gutterBottom>
-                Информация об обслуживании
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                После создания сервиса вы можете добавить в него отдельные объекты, такие как отели, рестораны и
-                достопримечательности. Для удобства навигации каждый объект может иметь своё местоположение на карте.
-              </Typography>
-            </Box>
           </Stack>
         </DialogContent>
         <DialogActions>
